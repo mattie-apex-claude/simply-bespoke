@@ -257,7 +257,7 @@ p + p { margin-top: 1rem; }
 }
 .trust-bar__grid {
   display: flex;
-  flex-wrap: nowrap;          /* always single row on desktop/tablet */
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
   gap: 0;
@@ -271,45 +271,22 @@ p + p { margin-top: 1rem; }
   color: rgba(255,255,255,.7);
   padding: .25rem 1.5rem;
   border-left: 1px solid rgba(255,255,255,.12);
-  flex-shrink: 1;             /* allow gentle shrink before breaking */
 }
 .trust-bar__item:first-child { border-left: none; }
 .trust-bar__icon { display: none; }
 
-/* Medium desktop / large tablet — reduce padding to fit */
-@media (max-width: 1100px) {
-  .trust-bar__item {
-    padding: .25rem .9rem;
-    font-size: .62rem;
-    letter-spacing: .07em;
-  }
-}
-
-/* Tablet — compress further but still one row */
-@media (max-width: 860px) {
-  .trust-bar__item {
-    padding: .25rem .55rem;
-    font-size: .57rem;
-    letter-spacing: .04em;
-  }
-}
-
-/* Mobile — switch to 2-col grid */
-@media (max-width: 540px) {
+@media (max-width: 599px) {
   .trust-bar__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: .2rem;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    gap: .4rem;
+    padding-block: .5rem;
   }
   .trust-bar__item {
     border-left: none;
-    justify-content: center;
-    text-align: center;
-    padding: .45rem .5rem;
-    font-size: .62rem;
-    letter-spacing: .07em;
     white-space: normal;
+    text-align: center;
+    padding: .2rem 1rem;
   }
 }
 
