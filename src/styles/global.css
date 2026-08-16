@@ -273,6 +273,32 @@ p + p { margin-top: 1rem; }
 .trust-bar__item:first-child { border-left: none; }
 .trust-bar__icon { display: none; }
 
+@media (max-width: 767px) {
+  .trust-bar__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .25rem;
+    max-width: 380px;
+    margin-inline: auto;
+  }
+  .trust-bar__item {
+    border-left: none;
+    justify-content: center;
+    text-align: center;
+    padding: .4rem .5rem;
+  }
+}
+
+@media (max-width: 399px) {
+  .trust-bar__grid {
+    grid-template-columns: 1fr;
+    max-width: 280px;
+  }
+  .trust-bar__item {
+    font-size: .63rem;
+  }
+}
+
 /* ═══════════════════════════════════════
    SPLIT PANEL (Domestic / Commercial)
 ═══════════════════════════════════════ */
