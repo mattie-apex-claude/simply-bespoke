@@ -1,0 +1,124 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import * as imgs from '../../data/images';
+---
+
+<Layout
+  title="Internal Mastic & Sealant Services | Simply Bespoke, North East England"
+  description="Professional internal mastic and sealant services across the North East. Skirting boards, floor perimeters, partition joints, internal finishing and silicone application. Free quotes."
+>
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <span class="eyebrow eyebrow--white">Domestic Service</span>
+      <h1>Internal Mastic &amp; Sealant Services</h1>
+      <p>Professional internal mastic and silicone application — clean finishing on floors, skirtings, partition joints and internal surfaces throughout the home.</p>
+    </div>
+  </section>
+
+  <!-- Intro with large lead image -->
+  <section class="section">
+    <div class="container">
+      <div class="internal-intro">
+        <div class="internal-intro__image">
+          <img
+            src={imgs.internal[0]}
+            alt="Internal mastic sealant — professionally finished floor and skirting joint"
+            loading="eager"
+          />
+        </div>
+        <div class="internal-intro__content">
+          <span class="eyebrow">Internal Sealant Specialist</span>
+          <h2>Clean, Precise Internal Sealant Finishing</h2>
+          <div class="prose">
+            <p>Gaps between floors, skirtings, walls and fittings allow draughts and moisture — and detract from a well-finished interior. Simply Bespoke provides professional internal sealant services across the North East using flexible, durable sealant products.</p>
+            <h3>Internal Sealant Services</h3>
+            <ul>
+              <li>Skirting board and floor perimeter sealing</li>
+              <li>Partition wall joint sealing</li>
+              <li>Internal window and door reveal sealant</li>
+              <li>Architrave and door frame mastic</li>
+              <li>Staircase and balustrade joint sealing</li>
+              <li>Internal expansion joint sealing</li>
+              <li>Tile-to-wall joint finishing</li>
+              <li>General internal mastic and finishing work</li>
+            </ul>
+          </div>
+          <div class="btn-group">
+            <a href="/contact" class="btn btn--primary">Request a Free Quote</a>
+            <a href="/domestic" class="btn btn--outline">All Domestic Services</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full gallery of internal images -->
+  <section class="section section--white" aria-labelledby="internal-gallery-heading">
+    <div class="container">
+      <div class="section__header">
+        <span class="eyebrow">The Work</span>
+        <h2 id="internal-gallery-heading">Internal Sealant Projects</h2>
+        <p class="text-muted">A selection of internal mastic and sealant work completed across the North East.</p>
+      </div>
+      <div class="internal-gallery">
+        {imgs.internal.map((src, i) => (
+          <div class="internal-gallery__item">
+            <img
+              src={src}
+              alt={`Internal mastic and sealant work — project ${i + 1}`}
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>
+
+<style>
+  .internal-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 5vw, 5rem);
+    align-items: start;
+  }
+  .internal-intro__image {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    position: sticky;
+    top: 6rem;
+  }
+  .internal-intro__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .internal-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+  .internal-gallery__item {
+    overflow: hidden;
+    aspect-ratio: 1;
+  }
+  .internal-gallery__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+  .internal-gallery__item:hover img {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 767px) {
+    .internal-intro { grid-template-columns: 1fr; }
+    .internal-intro__image { position: static; aspect-ratio: 16/9; }
+    .internal-gallery { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

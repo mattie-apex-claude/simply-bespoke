@@ -1,0 +1,84 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import * as imgs from '../../data/images';
+---
+
+<Layout
+  title="Window & Door Sealing | Simply Bespoke, North East England"
+  description="Professional window frame and door frame mastic sealing across the North East. Internal and external sealant application for a draught-free, watertight finish. Free quotes."
+>
+  <section class="section section--navy window-intro" aria-labelledby="window-h1">
+    <div class="container">
+      <div class="window-intro__grid">
+        <div class="window-intro__content">
+          <span class="eyebrow eyebrow--white">Domestic Service</span>
+          <h1 id="window-h1">Window &amp; Door Sealing</h1>
+          <p>Expert internal and external sealant application around window and door frames for a clean, draught-free, weathertight finish.</p>
+          <div class="btn-group">
+            <a href="/contact" class="btn btn--white">Request a Free Quote</a>
+            <a href="/domestic" class="btn btn--outline-white">All Domestic Services</a>
+          </div>
+        </div>
+        <div class="window-intro__image">
+          <img src={imgs.windowsDoors[0]} alt="Window frame sealant — professional finish" loading="eager" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Window &amp; Door Sealant</span>
+      <h2>Professional Frame Sealing Across the North East</h2>
+      <div class="prose">
+        <p>Gaps in window and door frame sealant allow draughts, water ingress and heat loss. Simply Bespoke provides professional frame sealing across the North East for both internal and external applications.</p>
+        <h3>Window Sealing</h3>
+        <ul>
+          <li>Internal and external window frame sealing</li>
+          <li>Frame-to-wall joint sealing</li>
+          <li>UPVC, timber and aluminium frames</li>
+          <li>Sill and threshold sealant joints</li>
+          <li>Old sealant removal and resealing</li>
+        </ul>
+        <h3>Door Sealing</h3>
+        <ul>
+          <li>Internal and external door frame mastic</li>
+          <li>Threshold and sill joint sealing</li>
+          <li>Patio door and bi-fold frame sealing</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-label="Window and door sealant work">
+    <div class="container">
+      <div class="section__header">
+        <span class="eyebrow">The Work</span>
+        <h2>Window &amp; Door Sealing Projects</h2>
+      </div>
+      <div class="service-gallery">
+        {imgs.windowsDoors.slice(0, 9).map((src, i) => (
+          <img src={src} alt={`Window or door frame sealant work example ${i + 1}`} loading="lazy" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>
+
+<style>
+  .window-intro { padding-block: clamp(4rem,7vw,7rem); }
+  .window-intro__grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem,5vw,5rem); align-items: center;
+  }
+  .window-intro__image { aspect-ratio: 4/3; overflow: hidden; }
+  .window-intro__image img { width: 100%; height: 100%; object-fit: cover; }
+
+  @media (max-width: 767px) {
+    .window-intro__grid { grid-template-columns: 1fr; }
+    .window-intro__image { order: -1; aspect-ratio: 16/9; }
+  }
+</style>

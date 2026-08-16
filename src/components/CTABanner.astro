@@ -1,0 +1,23 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  href?: string;
+}
+
+const {
+  title       = 'Get a Free Quote',
+  description = "Whether you're planning a home improvement project or require a reliable commercial sealant contractor, Simply Bespoke is ready to help.",
+  buttonText  = 'Request a Free Quote',
+  href        = '/contact',
+} = Astro.props;
+---
+
+<section class="cta-banner" aria-label="Get in touch with Simply Bespoke">
+  <div class="container">
+    <h2>{title}</h2>
+    <p>{description}</p>
+    <a href={href} class="btn btn--white">{buttonText}</a>
+  </div>
+</section>

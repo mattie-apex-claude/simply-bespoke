@@ -1,0 +1,114 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import * as imgs from '../../data/images';
+---
+
+<Layout
+  title="External Mastic & Sealant Services | Simply Bespoke, North East England"
+  description="Professional external mastic and sealant services across the North East. Brickwork sealing, external perimeters, weatherproofing joints and external silicone application. Free quotes."
+>
+  <!-- Full-width image header -->
+  <section class="external-hero" aria-labelledby="external-h1">
+    <div class="external-hero__bg" aria-hidden="true">
+      <img src={imgs.external[0]} alt="" loading="eager" />
+    </div>
+    <div class="external-hero__overlay" aria-hidden="true"></div>
+    <div class="container external-hero__content">
+      <span class="eyebrow eyebrow--white">Domestic Service</span>
+      <h1 id="external-h1">External Mastic &amp; Sealant Services</h1>
+      <p>Weather-resistant external mastic and sealant application — protecting your home against the North East climate.</p>
+    </div>
+  </section>
+
+  <!-- Content section -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">External Sealant Specialist</span>
+      <h2>Professional External Sealant Across the North East</h2>
+      <div class="prose">
+        <p>External joints exposed to UV, rain and temperature cycles will quickly expose poorly applied sealant. Simply Bespoke uses flexible, UV-stable, weather-resistant products correctly specified for each external application.</p>
+        <h3>External Sealant Services</h3>
+        <ul>
+          <li>Window and door frame perimeter sealing</li>
+          <li>Brickwork and masonry joint sealing</li>
+          <li>Render crack and joint sealing</li>
+          <li>Expansion joint sealing on external walls</li>
+          <li>Cladding and panel joint sealing</li>
+          <li>External floor and threshold sealant</li>
+          <li>Failed sealant removal and resealing</li>
+        </ul>
+      </div>
+      <div class="btn-group">
+        <a href="/contact" class="btn btn--primary">Request a Free Quote</a>
+        <a href="/domestic" class="btn btn--outline">All Domestic Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full gallery — all external images -->
+  <section class="section section--navy" aria-labelledby="external-gallery-heading">
+    <div class="container">
+      <div class="section__header section__header--center">
+        <span class="eyebrow eyebrow--white">The Work</span>
+        <h2 id="external-gallery-heading">External Sealant Projects</h2>
+        <p>A selection of external mastic and sealant work completed across the North East.</p>
+      </div>
+      <div class="external-gallery">
+        {imgs.external.map((src, i) => (
+          <div class="external-gallery__item">
+            <img
+              src={src}
+              alt={`External mastic and sealant work — project ${i + 1}`}
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>
+
+<style>
+  /* Hero */
+  .external-hero {
+    position: relative;
+    min-height: 68vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: var(--color-navy);
+  }
+  .external-hero__bg { position: absolute; inset: 0; }
+  .external-hero__bg img { width: 100%; height: 100%; object-fit: cover; }
+  .external-hero__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(27,42,74,.92) 0%, rgba(27,42,74,.4) 55%, transparent 100%);
+  }
+  .external-hero__content {
+    position: relative; z-index: 1;
+    color: #fff; padding-block: 4rem;
+  }
+  .external-hero__content h1,
+  .external-hero__content p { color: #fff; }
+  .external-hero__content > p { color: rgba(255,255,255,.85); font-size: 1.1rem; max-width: 52ch; }
+
+  /* Gallery */
+  .external-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+  }
+  .external-gallery__item { overflow: hidden; aspect-ratio: 4/3; }
+  .external-gallery__item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+  .external-gallery__item:hover img { transform: scale(1.04); }
+
+  @media (max-width: 767px) {
+    .external-gallery { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

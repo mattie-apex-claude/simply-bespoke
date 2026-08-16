@@ -1,0 +1,94 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import * as imgs from '../../data/images';
+---
+
+<Layout
+  title="Kitchen Sealant Services | Simply Bespoke, North East England"
+  description="Professional kitchen mastic and silicone sealant services across the North East. Worktop sealing, splashback sealant, sink surround and upstand sealing. Free no-obligation quotes."
+>
+  <!-- Full-width image header -->
+  <section class="kitchen-header" aria-label="Kitchen sealant services">
+    <div class="kitchen-header__bg" aria-hidden="true">
+      <img src={imgs.kitchen[2]} alt="" loading="eager" />
+    </div>
+    <div class="kitchen-header__overlay" aria-hidden="true"></div>
+    <div class="container kitchen-header__content">
+      <span class="eyebrow eyebrow--white">Domestic Service</span>
+      <h1>Kitchen Sealant Services</h1>
+      <p>Watertight, hygienic and professionally finished mastic and silicone application for kitchens across the North East.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Kitchen Sealant Specialists</span>
+      <h2>Professional Kitchen Sealing</h2>
+      <div class="prose">
+        <p>Cracked or discoloured mastic around worktops, splashbacks and sinks looks poor and allows moisture in. Simply Bespoke provides professional kitchen sealant services across the North East using quality products suited to the kitchen environment.</p>
+        <h3>Kitchen Sealant Services</h3>
+        <ul>
+          <li>Worktop to wall sealant joints</li>
+          <li>Upstand and splashback sealing</li>
+          <li>Sink surround and undermount sealing</li>
+          <li>Hob surround and appliance sealing</li>
+          <li>Old mastic removal and resealing</li>
+          <li>Anti-mould silicone application</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Image gallery across full width -->
+  <section class="kitchen-gallery" aria-label="Kitchen sealant work examples">
+    {imgs.kitchen.map((src, i) => (
+      <div class="kitchen-gallery__item">
+        <img src={src} alt={`Kitchen mastic sealant work example ${i + 1}`} loading="lazy" />
+      </div>
+    ))}
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="btn-group">
+        <a href="/contact" class="btn btn--primary">Request a Free Quote</a>
+        <a href="/domestic" class="btn btn--outline">All Domestic Services</a>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>
+
+<style>
+  .kitchen-header {
+    position: relative; min-height: 65vh;
+    display: flex; align-items: flex-end;
+    overflow: hidden; background: var(--color-navy);
+  }
+  .kitchen-header__bg { position: absolute; inset: 0; }
+  .kitchen-header__bg img { width: 100%; height: 100%; object-fit: cover; }
+  .kitchen-header__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(27,42,74,.92) 0%, rgba(27,42,74,.4) 60%, transparent 100%);
+  }
+  .kitchen-header__content {
+    position: relative; z-index: 1; color: #fff;
+    padding-block: 4rem;
+  }
+  .kitchen-header__content h1,
+  .kitchen-header__content p { color: #fff; }
+  .kitchen-header__content > p { color: rgba(255,255,255,.85); font-size: 1.1rem; max-width: 52ch; }
+
+  .kitchen-gallery {
+    display: grid; grid-template-columns: repeat(5,1fr); height: 340px; gap: 4px;
+  }
+  .kitchen-gallery__item { overflow: hidden; }
+  .kitchen-gallery__item img { width: 100%; height: 100%; object-fit: cover; }
+
+  @media (max-width: 767px) {
+    .kitchen-gallery { grid-template-columns: repeat(2,1fr); height: auto; }
+    .kitchen-gallery__item { aspect-ratio: 1; }
+  }
+</style>

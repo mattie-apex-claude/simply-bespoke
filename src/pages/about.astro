@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTABanner from '../components/CTABanner.astro';
+import * as imgs from '../data/images';
+---
+
+<Layout
+  title="About Simply Bespoke | Mastic & Sealant Specialists, North East England"
+  description="Simply Bespoke was founded by Ricky to deliver professional domestic and commercial mastic and sealant services across the North East of England. Precision, professionalism and quality workmanship on every project."
+>
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <span class="eyebrow eyebrow--white">About Us</span>
+      <h1>About Simply Bespoke</h1>
+      <p>Professional mastic and sealant specialists serving the North East of England with precision and care on every project.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="about-intro">
+        <div class="about-intro__image">
+          <img src={imgs.bathroom[4]} alt="Clean bathroom sealant work completed by Simply Bespoke" loading="lazy" />
+        </div>
+        <div class="about-intro__content">
+          <span class="eyebrow">Our Story</span>
+          <h2>Precision, Professionalism &amp; Quality Workmanship</h2>
+          <div class="prose">
+            <p>Simply Bespoke was founded by Ricky to deliver professional mastic and sealant services across the North East — the same high standard whether it's a domestic bathroom reseal or a large commercial development.</p>
+            <p>Domestic and commercial clients throughout Newcastle, Sunderland, Durham, Gateshead, Middlesbrough, Darlington and beyond.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="values-heading">
+    <div class="container">
+      <div class="section__header">
+        <span class="eyebrow">What Drives Us</span>
+        <h2 id="values-heading">Our Values</h2>
+      </div>
+      <div class="about-values">
+        <div class="value-card"><h3>Precision</h3><p>Clean lines, tight joints, professional finish. Every time.</p></div>
+        <div class="value-card"><h3>Professionalism</h3><p>Reliable, punctual and respectful of your property.</p></div>
+        <div class="value-card"><h3>Attention to Detail</h3><p>The small details make the difference. We take pride in them.</p></div>
+        <div class="value-card"><h3>Reliability</h3><p>We show up when we say we will.</p></div>
+        <div class="value-card"><h3>Quality Workmanship</h3><p>Premium products. Proven techniques. Results that last.</p></div>
+        <div class="value-card"><h3>Domestic &amp; Commercial</h3><p>From a bathroom reseal to a new build development — the same standard throughout.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--navy about-gallery-section" aria-label="Work examples">
+    <div class="container">
+      <div class="section__header section__header--center">
+        <span class="eyebrow eyebrow--white">The Work</span>
+        <h2>Consistently High Standards</h2>
+      </div>
+      <div class="about-gallery">
+        <img src={imgs.bathroom[5]} alt="Bathroom sealant finished result" loading="lazy" />
+        <img src={imgs.kitchen[1]}  alt="Kitchen mastic application" loading="lazy" />
+        <img src={imgs.external[3]} alt="External sealant work" loading="lazy" />
+        <img src={imgs.internal[1]} alt="Internal mastic sealing" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>
+
+<style>
+  .about-intro {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem,6vw,6rem); align-items: start;
+  }
+  .about-intro__image { aspect-ratio: 4/5; overflow: hidden; position: sticky; top: 6rem; }
+  .about-intro__image img { width: 100%; height: 100%; object-fit: cover; }
+  .about-intro__content h2 { margin: .75rem 0 1.25rem; }
+
+  .about-gallery {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 4px; margin-top: 2rem;
+  }
+  .about-gallery img { aspect-ratio: 1; object-fit: cover; width: 100%; }
+
+  @media (max-width: 767px) {
+    .about-intro { grid-template-columns: 1fr; }
+    .about-intro__image { position: static; aspect-ratio: 16/9; }
+    .about-gallery { grid-template-columns: repeat(2,1fr); }
+  }
+</style>

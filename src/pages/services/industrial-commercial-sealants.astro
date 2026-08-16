@@ -1,0 +1,88 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import * as imgs from '../../data/images';
+---
+
+<Layout
+  title="Industrial & Commercial Sealants | Simply Bespoke, North East England"
+  description="Professional industrial and commercial mastic and sealant services across the North East. Retail, office, industrial and mixed-use development sealant application."
+>
+  <!-- Bold full-width image banner -->
+  <section class="industrial-banner" aria-label="Industrial and commercial sealant services">
+    <div class="industrial-banner__strip">
+      {[imgs.external[0], imgs.external[5], imgs.internal[6], imgs.external[8]].map(src => (
+        <div class="industrial-banner__cell" aria-hidden="true">
+          <img src={src} alt="" loading="eager" />
+        </div>
+      ))}
+    </div>
+    <div class="industrial-banner__overlay" aria-hidden="true"></div>
+    <div class="container industrial-banner__content">
+      <span class="eyebrow eyebrow--white">Commercial Service</span>
+      <h1>Industrial &amp; Commercial Sealants</h1>
+      <p>Professional mastic and sealant application for retail, office, industrial and mixed-use developments across the North East.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Commercial Sealant Contractor</span>
+      <h2>Sealant Services for Commercial Projects</h2>
+      <div class="prose">
+        <p>Commercial and industrial buildings present a range of specific sealant requirements — from high-traffic retail floor joints to façade sealing on large commercial developments. Simply Bespoke provides professional sealant application across a variety of commercial project types throughout the North East.</p>
+        <p>We work with main contractors, commercial fit-out teams, facilities managers and building owners to deliver quality sealant work that meets the demands of the commercial environment.</p>
+        <h3>Commercial Sealant Applications</h3>
+        <ul>
+          <li>Retail and commercial fit-out sealing</li>
+          <li>Office and workspace sealant application</li>
+          <li>Industrial unit and warehouse sealing</li>
+          <li>Floor joint sealing in commercial environments</li>
+          <li>Façade and cladding joint sealing</li>
+          <li>Window and glazing perimeter sealing</li>
+          <li>Sanitary silicone in commercial facilities</li>
+          <li>Expansion and movement joint sealing</li>
+          <li>Remedial sealant replacement</li>
+        </ul>
+      </div>
+      <div class="btn-group">
+        <a href="/contact" class="btn btn--primary">Discuss Your Project</a>
+        <a href="/commercial" class="btn btn--outline">All Commercial Services</a>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Commercial Sealant Contractor — North East England"
+    description="Simply Bespoke delivers professional mastic and sealant services for commercial projects of all scales across the North East. Get in touch to discuss your requirements."
+    buttonText="Get in Touch"
+  />
+</Layout>
+
+<style>
+  .industrial-banner {
+    position: relative; min-height: 60vh;
+    display: flex; align-items: flex-end;
+    overflow: hidden; background: var(--color-navy);
+  }
+  .industrial-banner__strip {
+    position: absolute; inset: 0;
+    display: grid; grid-template-columns: repeat(4,1fr);
+  }
+  .industrial-banner__cell { overflow: hidden; }
+  .industrial-banner__cell img { width: 100%; height: 100%; object-fit: cover; }
+  .industrial-banner__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(27,42,74,.95) 0%, rgba(27,42,74,.55) 50%, rgba(27,42,74,.3) 100%);
+  }
+  .industrial-banner__content {
+    position: relative; z-index: 1; color: #fff; padding-block: 4rem;
+  }
+  .industrial-banner__content h1,
+  .industrial-banner__content p { color: #fff; }
+  .industrial-banner__content > p { color: rgba(255,255,255,.85); font-size: 1.1rem; max-width: 52ch; }
+
+  @media (max-width: 767px) {
+    .industrial-banner__strip { grid-template-columns: repeat(2,1fr); }
+  }
+</style>

@@ -1,0 +1,177 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTABanner from '../components/CTABanner.astro';
+import * as imgs from '../data/images';
+
+const services = [
+  {
+    href: '/services/bathroom-sealant',
+    title: 'Bathroom Sealant',
+    desc: 'Professional bathroom sealing, shower tray sealant and bath silicone replacement. Clean, precise application every time.',
+    img: imgs.bathroom[7],
+    alt: 'Bathroom sealant specialist — clean silicone finish',
+  },
+  {
+    href: '/services/kitchen-sealant',
+    title: 'Kitchen Sealant',
+    desc: 'Worktop mastic, splashback sealing and sink surround silicone. Hygienic, watertight and professionally finished.',
+    img: imgs.kitchen[0],
+    alt: 'Kitchen worktop sealant application',
+  },
+  {
+    href: '/services/window-door-sealing',
+    title: 'Window & Door Sealing',
+    desc: 'Internal and external window frame sealing, door frame mastic and draught-proofing sealant for a neat, weathertight finish.',
+    img: imgs.windowsDoors[0],
+    alt: 'Window frame sealant applied by Simply Bespoke',
+  },
+  {
+    href: '/services/floors-skirting',
+    title: 'Floors & Skirting',
+    desc: 'Floor perimeter sealing, skirting board joint sealant and internal finishing mastic. Clean lines throughout your home.',
+    img: imgs.internal[0],
+    alt: 'Internal floor perimeter sealant finishing',
+  },
+  {
+    href: '/services/brickwork-expansion-joints',
+    title: 'Brickwork & Expansion Joints',
+    desc: 'External brickwork sealant, expansion joint filling and perimeter sealing for lasting weather protection.',
+    img: imgs.external[0],
+    alt: 'External expansion joint sealant work',
+  },
+  {
+    href: '/services/internal-sealant',
+    title: 'Internal Sealant',
+    desc: 'Floor perimeters, skirting joints, partition sealing and internal mastic finishing throughout the home.',
+    img: imgs.internal[0],
+    alt: 'Internal mastic sealant — floor and skirting finishing',
+  },
+  {
+    href: '/services/external-sealant',
+    title: 'External Sealant',
+    desc: 'Weather-resistant mastic and sealant for external walls, window perimeters, brickwork and render joints.',
+    img: imgs.external[1],
+    alt: 'External mastic and sealant application',
+  },
+];
+---
+
+<Layout
+  title="Domestic Mastic & Sealant Services | Simply Bespoke, North East England"
+  description="Professional domestic mastic and sealant services across the North East. Bathroom sealing, kitchen sealant, window and door sealing, floors, skirting and more. Free no-obligation quotes."
+>
+  <!-- Hero with image -->
+  <section class="domestic-hero" aria-label="Domestic sealant services">
+    <div class="domestic-hero__bg" aria-hidden="true">
+      <img src={imgs.bathroom[6]} alt="" loading="eager" />
+    </div>
+    <div class="domestic-hero__overlay" aria-hidden="true"></div>
+    <div class="container domestic-hero__content">
+      <span class="eyebrow eyebrow--white">For Homeowners</span>
+      <h1>Domestic Mastic &amp; Sealant Services</h1>
+      <p>Protect your home with expertly applied sealants that improve appearance, prevent water ingress and stand the test of time.</p>
+      <div class="btn-group">
+        <a href="/contact" class="btn btn--primary">Request a Free Quote</a>
+        <a href="/projects" class="btn btn--outline-white">View Our Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Domestic Sealant Specialists</span>
+      <h2>Professional Sealant Services for Your Home</h2>
+      <div class="prose">
+        <p>Mastic and sealant services for residential properties across the North East. Bathrooms, kitchens, windows, doors, floors and external joints — clean results, quality products.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service cards -->
+  <section class="section section--white" aria-labelledby="domestic-services-heading">
+    <div class="container">
+      <div class="section__header">
+        <span class="eyebrow">What We Offer</span>
+        <h2 id="domestic-services-heading">Domestic Sealant Services</h2>
+      </div>
+      <div class="service-cards">
+        {services.map(s => (
+          <a href={s.href} class="service-card">
+            <div class="service-card__image">
+              <img src={s.img} alt={s.alt} loading="lazy" />
+            </div>
+            <div class="service-card__body">
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+              <span class="service-tile__link">Find out more →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery band -->
+  <section class="section section--navy" aria-label="Domestic work examples">
+    <div class="container">
+      <div class="section__header section__header--center">
+        <span class="eyebrow eyebrow--white">The Work</span>
+        <h2>Domestic Project Gallery</h2>
+      </div>
+      <div class="service-gallery">
+        {[imgs.bathroom[8], imgs.bathroom[9], imgs.kitchen[2], imgs.windowsDoors[1], imgs.internal[2], imgs.bathroom[10]].map((src, i) => (
+          <img src={src} alt={`Domestic sealant work example ${i + 1}`} loading="lazy" />
+        ))}
+      </div>
+      <div class="btn-group" style="margin-top:2.5rem;justify-content:center">
+        <a href="/projects" class="btn btn--white">View All Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>
+
+<style>
+  .domestic-hero {
+    position: relative; min-height: 72vh;
+    display: flex; align-items: center;
+    overflow: hidden; background: var(--color-navy);
+  }
+  .domestic-hero__bg { position: absolute; inset: 0; }
+  .domestic-hero__bg img { width: 100%; height: 100%; object-fit: cover; }
+  .domestic-hero__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(108deg, rgba(27,42,74,.91) 40%, rgba(27,42,74,.5) 100%);
+  }
+  .domestic-hero__content {
+    position: relative; z-index: 1;
+    color: #fff; padding-block: 5rem; max-width: 680px;
+  }
+  .domestic-hero__content h1,
+  .domestic-hero__content p { color: #fff; }
+  .domestic-hero__content > p { color: rgba(255,255,255,.85); font-size: 1.1rem; max-width: 55ch; }
+
+  .service-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .service-card {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--color-border);
+    overflow: hidden; background: #fff;
+    transition: box-shadow var(--transition);
+  }
+  .service-card:hover { box-shadow: var(--shadow-md); }
+  .service-card__image { aspect-ratio: 16/9; overflow: hidden; }
+  .service-card__image img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .35s ease;
+  }
+  .service-card:hover .service-card__image img { transform: scale(1.04); }
+  .service-card__body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+  .service-card__body h3 { margin-bottom: .5rem; }
+  .service-card__body p { font-size: .9rem; color: var(--color-muted); max-width: none; flex: 1; margin-bottom: .75rem; }
+</style>

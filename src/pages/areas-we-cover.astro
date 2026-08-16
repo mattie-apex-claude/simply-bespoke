@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTABanner from '../components/CTABanner.astro';
+
+const locations = [
+  {
+    href: '/newcastle',
+    name: 'Newcastle upon Tyne',
+    desc: 'Domestic and commercial sealant services across Newcastle and the wider Tyneside area.',
+  },
+  {
+    href: '/sunderland',
+    name: 'Sunderland',
+    desc: 'Professional mastic and sealant services for homes and commercial projects throughout Sunderland.',
+  },
+  {
+    href: '/durham',
+    name: 'Durham',
+    desc: 'Domestic and commercial sealant work across Durham city and the surrounding county.',
+  },
+  {
+    href: '/gateshead',
+    name: 'Gateshead',
+    desc: 'Professional sealant services for residential and commercial properties throughout Gateshead.',
+  },
+  {
+    href: '/middlesbrough',
+    name: 'Middlesbrough',
+    desc: 'Commercial and domestic sealant application across Middlesbrough and the Teesside area.',
+  },
+  {
+    href: '/darlington',
+    name: 'Darlington',
+    desc: 'Domestic and new build sealant services for properties across Darlington and surrounding areas.',
+  },
+];
+---
+
+<Layout
+  title="Areas We Cover | Simply Bespoke Mastic & Sealant, North East England"
+  description="Simply Bespoke provides professional mastic and sealant services across the North East of England, covering Newcastle, Sunderland, Durham, Gateshead, Middlesbrough, Darlington and the wider region."
+>
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <span class="eyebrow eyebrow--white">Coverage</span>
+      <h1>Areas We Cover</h1>
+      <p>Simply Bespoke provides professional mastic and sealant services across the North East of England — from individual homes to large commercial developments.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__header">
+        <span class="eyebrow">North East England</span>
+        <h2>Sealant Services Across the North East</h2>
+        <p>We serve both domestic and commercial clients throughout the region. Whether you're a homeowner in Newcastle or a developer working on a new build in Darlington, Simply Bespoke can help.</p>
+      </div>
+      <div class="location-cards">
+        {locations.map(loc => (
+          <a href={loc.href} class="location-card">
+            <h3>{loc.name}</h3>
+            <p>{loc.desc}</p>
+            <span class="service-tile__link">View local services →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="coverage-heading">
+    <div class="container container--narrow">
+      <span class="eyebrow">Coverage</span>
+      <h2 id="coverage-heading">Not Listed? We May Still Cover Your Area</h2>
+      <div class="prose">
+        <p>The locations above represent our primary service areas across the North East of England. However, if your location is not listed, please get in touch — we cover a wider area and may be able to help with your domestic or commercial sealant project.</p>
+        <p>Simply Bespoke regularly works on projects throughout County Durham, Northumberland, Tyne and Wear, and Teesside. Contact us to discuss your requirements and location.</p>
+      </div>
+      <div class="btn-group mt-2">
+        <a href="/contact" class="btn btn--primary">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>
+
+<style>
+  .location-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .location-card {
+    display: flex; flex-direction: column;
+    padding: 2rem; background: #fff;
+    border: 1px solid var(--color-border);
+    transition: box-shadow var(--transition), border-color var(--transition);
+  }
+  .location-card:hover { box-shadow: var(--shadow-md); border-color: var(--color-blue); }
+  .location-card h3 { margin-bottom: .5rem; }
+  .location-card p { font-size: .9rem; color: var(--color-muted); max-width: none; flex: 1; margin-bottom: 1rem; }
+</style>

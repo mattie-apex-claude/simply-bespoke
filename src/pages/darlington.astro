@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTABanner from '../components/CTABanner.astro';
+import * as imgs from '../data/images';
+---
+
+<Layout
+  title="Mastic & Sealant Specialists Darlington | Simply Bespoke"
+  description="Professional mastic and sealant services in Darlington. Domestic bathroom and kitchen sealing, new build sealant packages and window sealing. Free no-obligation quotes."
+>
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <span class="eyebrow eyebrow--white">Darlington</span>
+      <h1>Mastic &amp; Sealant Specialists in Darlington</h1>
+      <p>Professional domestic and commercial sealant services across Darlington and the surrounding area.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="darlington-layout">
+        <div>
+          <span class="eyebrow">Darlington Coverage</span>
+          <h2>Simply Bespoke in Darlington</h2>
+          <div class="prose">
+            <p>Domestic and commercial sealant services across Darlington — bathroom and shower resealing, kitchen worktop mastic, window and door sealing, and new build sealant packages for the area's growing residential development.</p>
+          </div>
+        </div>
+        <div class="darlington-image">
+          <img src={imgs.bathroom[13]} alt="Domestic sealant work completed in Darlington" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="darlington-services">
+    <div class="container">
+      <h2 id="darlington-services">Sealant Services Available in Darlington</h2>
+      <div class="location-services">
+        <div class="location-service-item">Bathroom Sealant &amp; Resealing</div>
+        <div class="location-service-item">Kitchen Worktop &amp; Splashback Mastic</div>
+        <div class="location-service-item">Window &amp; Door Frame Sealing</div>
+        <div class="location-service-item">Floor &amp; Skirting Sealant</div>
+        <div class="location-service-item">External Brickwork &amp; Joint Sealing</div>
+        <div class="location-service-item">New Build Sealant Packages</div>
+        <div class="location-service-item">Commercial Sealant Application</div>
+        <div class="location-service-item">Expansion Joint Sealing</div>
+      </div>
+      <div class="btn-group mt-2">
+        <a href="/contact" class="btn btn--primary">Request a Free Quote</a>
+        <a href="/services" class="btn btn--outline">View All Services</a>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Free Quote for Darlington Sealant Work"
+    description="Get a free, no-obligation quote for domestic or commercial mastic and sealant work in Darlington."
+    buttonText="Request a Free Quote"
+  />
+</Layout>
+
+<style>
+  .darlington-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem,5vw,5rem); align-items: start;
+  }
+  .darlington-image { aspect-ratio: 4/5; overflow: hidden; position: sticky; top: 6rem; }
+  .darlington-image img { width: 100%; height: 100%; object-fit: cover; }
+
+  @media (max-width: 767px) {
+    .darlington-layout { grid-template-columns: 1fr; }
+    .darlington-image { position: static; aspect-ratio: 16/9; }
+  }
+</style>

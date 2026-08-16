@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import * as imgs from '../../data/images';
+---
+
+<Layout
+  title="Bathroom Sealant Services | Simply Bespoke, North East England"
+  description="Professional bathroom mastic and silicone sealant services across the North East. Bath sealing, shower tray sealant, silicone replacement and resealing. Free no-obligation quotes."
+>
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <span class="eyebrow eyebrow--white">Domestic Service</span>
+      <h1>Bathroom Sealant Services</h1>
+      <p>Expert bath, shower and bathroom silicone application and resealing across the North East of England.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="service-intro">
+        <div class="service-intro__image">
+          <img src={imgs.bathroom[0]} alt="Clean bathroom sealant application — professional finish" loading="lazy" />
+        </div>
+        <div>
+          <span class="eyebrow">Bathroom Sealant Specialists</span>
+          <h2>Professional Bathroom Sealing Across the North East</h2>
+          <div class="prose">
+            <p>Deteriorating bathroom sealant allows water behind tiles, shower trays and baths — causing damp, mould and damage over time. Simply Bespoke provides professional bathroom sealant services across the North East using quality, durable products.</p>
+            <h3>What We Do</h3>
+            <ul>
+              <li>Bath silicone sealing and resealing</li>
+              <li>Shower tray and enclosure sealing</li>
+              <li>Tile-to-bath and tile-to-tray joints</li>
+              <li>Mould-resistant silicone application</li>
+              <li>Old sealant removal and replacement</li>
+              <li>Wet room perimeter sealing</li>
+            </ul>
+          </div>
+          <div class="btn-group">
+            <a href="/contact" class="btn btn--primary">Request a Free Quote</a>
+            <a href="/domestic" class="btn btn--outline">All Domestic Services</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-label="Bathroom sealant project gallery">
+    <div class="container">
+      <div class="section__header">
+        <span class="eyebrow">The Work</span>
+        <h2>Bathroom Sealant Projects</h2>
+      </div>
+      <div class="service-gallery">
+        {imgs.bathroom.slice(1, 10).map((src, i) => (
+          <img src={src} alt={`Bathroom sealant work example ${i + 1}`} loading="lazy" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>

@@ -1,0 +1,73 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import * as imgs from '../../data/images';
+---
+
+<Layout
+  title="Floors & Skirting Sealant | Simply Bespoke, North East England"
+  description="Professional floor perimeter and skirting board sealant services across the North East. Clean, precise mastic application for internal finishing. Free no-obligation quotes."
+>
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <span class="eyebrow eyebrow--white">Domestic Service</span>
+      <h1>Floors &amp; Skirting Sealant</h1>
+      <p>Clean, precise floor perimeter and skirting sealant application for a professional internal finish across the North East.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="floors-layout">
+        <div class="floors-content">
+          <span class="eyebrow">Internal Sealant Finishing</span>
+          <h2>Floor Perimeter &amp; Skirting Sealant</h2>
+          <div class="prose">
+            <p>The joint between flooring and skirting boards, or between hard flooring and walls, is a common area where gaps develop over time. These small gaps can allow draughts, moisture and pests to enter — and they can significantly affect the appearance of an otherwise well-finished room.</p>
+            <p>Simply Bespoke provides professional floor perimeter and skirting sealant services across the North East of England, using flexible, durable sealant products that allow for natural movement without cracking or pulling away.</p>
+            <h3>Floor &amp; Skirting Sealant Services</h3>
+            <ul>
+              <li>Floor-to-skirting board sealant joints</li>
+              <li>Floor perimeter sealing in bathrooms and kitchens</li>
+              <li>Hard floor edge and tile perimeter finishing</li>
+              <li>Laminate and engineered wood perimeter sealing</li>
+              <li>Movement joint sealing in floor finishes</li>
+              <li>Internal finishing mastic throughout the home</li>
+              <li>Removal of old sealant and reapplication</li>
+            </ul>
+            <p>Flexible sealant in floor perimeter joints allows the natural expansion and contraction of flooring and skirting materials, maintaining a clean appearance and preventing gaps from reappearing over time.</p>
+          </div>
+          <div class="btn-group">
+            <a href="/contact" class="btn btn--primary">Request a Free Quote</a>
+            <a href="/domestic" class="btn btn--outline">All Domestic Services</a>
+          </div>
+        </div>
+        <div class="floors-images">
+          <img src={imgs.internal[0]} alt="Internal sealant finishing — floor perimeter" loading="lazy" />
+          <img src={imgs.internal[3]} alt="Skirting board mastic sealant application" loading="lazy" />
+          <img src={imgs.internal[5]} alt="Floor joint sealing" loading="lazy" />
+          <img src={imgs.internal[6]} alt="Internal mastic finishing work" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>
+
+<style>
+  .floors-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem,5vw,5rem); align-items: start;
+  }
+  .floors-images {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+    position: sticky; top: 6rem;
+  }
+  .floors-images img { aspect-ratio: 1; object-fit: cover; width: 100%; }
+
+  @media (max-width: 767px) {
+    .floors-layout { grid-template-columns: 1fr; }
+    .floors-images { position: static; }
+  }
+</style>

@@ -1,0 +1,84 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import * as imgs from '../../data/images';
+---
+
+<Layout
+  title="Brickwork & Expansion Joint Sealing | Simply Bespoke, North East England"
+  description="Professional brickwork and expansion joint sealant services across the North East. External mastic and sealant application for lasting weather protection. Free quotes."
+>
+  <!-- Full-width image with overlay text -->
+  <section class="brickwork-hero" aria-labelledby="brickwork-h1">
+    <div class="brickwork-hero__bg" aria-hidden="true">
+      <img src={imgs.external[3]} alt="" loading="eager" />
+    </div>
+    <div class="brickwork-hero__overlay" aria-hidden="true"></div>
+    <div class="container brickwork-hero__content">
+      <span class="eyebrow eyebrow--white">Domestic Service</span>
+      <h1 id="brickwork-h1">Brickwork &amp; Expansion Joint Sealing</h1>
+      <p>External brickwork mastic and expansion joint sealant for lasting weather protection on residential properties.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">External Sealant Specialist</span>
+      <h2>External Sealant for Homes Across the North East</h2>
+      <div class="prose">
+        <p>External joints in brickwork, render and cladding allow water to penetrate if left unsealed or if existing sealant has failed. The North East climate places significant weathering demands on building exteriors — making quality external sealant application especially important.</p>
+        <p>Simply Bespoke provides professional external brickwork and expansion joint sealing for residential properties throughout the North East, using durable, weather-resistant sealant products that flex with the natural movement of the building.</p>
+        <h3>External Sealant Services</h3>
+        <ul>
+          <li>Brickwork joint and crack sealant</li>
+          <li>Expansion joint sealing</li>
+          <li>Frame-to-brickwork perimeter sealing</li>
+          <li>External wall mastic application</li>
+          <li>Weatherproof sealant around openings</li>
+          <li>Render crack and joint sealing</li>
+          <li>Failed sealant removal and replacement</li>
+        </ul>
+        <h3>Why External Sealant Matters</h3>
+        <p>Properly sealed external joints prevent water ingress, reduce heat loss and protect the structural fabric of the building. We use flexible, UV-resistant sealant products that accommodate movement and maintain their integrity over time.</p>
+      </div>
+      <div class="btn-group">
+        <a href="/contact" class="btn btn--primary">Request a Free Quote</a>
+        <a href="/domestic" class="btn btn--outline">All Domestic Services</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-label="External sealant work examples">
+    <div class="container">
+      <div class="section__header">
+        <span class="eyebrow">The Work</span>
+        <h2>External Sealant Projects</h2>
+      </div>
+      <div class="service-gallery">
+        {imgs.external.slice(0, 9).map((src, i) => (
+          <img src={src} alt={`External sealant work example ${i + 1}`} loading="lazy" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>
+
+<style>
+  .brickwork-hero {
+    position: relative; min-height: 65vh;
+    display: flex; align-items: flex-end;
+    overflow: hidden; background: var(--color-navy);
+  }
+  .brickwork-hero__bg { position: absolute; inset: 0; }
+  .brickwork-hero__bg img { width: 100%; height: 100%; object-fit: cover; }
+  .brickwork-hero__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(27,42,74,.92) 0%, rgba(27,42,74,.35) 60%, transparent 100%);
+  }
+  .brickwork-hero__content { position: relative; z-index: 1; color: #fff; padding-block: 4rem; }
+  .brickwork-hero__content h1,
+  .brickwork-hero__content p { color: #fff; }
+  .brickwork-hero__content > p { color: rgba(255,255,255,.85); font-size: 1.1rem; max-width: 52ch; }
+</style>

@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTABanner from '../components/CTABanner.astro';
+import * as imgs from '../data/images';
+---
+
+<Layout
+  title="Mastic & Sealant Specialists Newcastle | Simply Bespoke"
+  description="Professional mastic and sealant services in Newcastle upon Tyne and across Tyneside. Domestic and commercial silicone, mastic and sealant application. Free no-obligation quotes."
+>
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <span class="eyebrow eyebrow--white">Newcastle upon Tyne</span>
+      <h1>Mastic &amp; Sealant Specialists in Newcastle</h1>
+      <p>Professional domestic and commercial mastic and sealant services across Newcastle upon Tyne and the wider Tyneside area.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="location-intro">
+        <div class="location-intro__content">
+          <span class="eyebrow">Newcastle Coverage</span>
+          <h2>Simply Bespoke in Newcastle upon Tyne</h2>
+          <div class="prose">
+            <p>Domestic and commercial mastic and sealant services across Newcastle upon Tyne and Tyneside. From residential bathroom reseals to commercial new build packages — the same professional standard throughout.</p>
+            <h3>Domestic Services in Newcastle</h3>
+            <p>Bathroom silicone, kitchen worktop mastic, window and door sealing, floor perimeters and external brickwork sealant for homeowners across the city.</p>
+            <h3>Commercial Sealant in Newcastle</h3>
+            <p>New build sealant packages, expansion joints, fire-rated sealants and commercial fit-out work for contractors and developers across Tyneside.</p>
+          </div>
+        </div>
+        <div class="location-intro__image">
+          <img src={imgs.bathroom[11]} alt="Bathroom sealant work completed in Newcastle" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="newcastle-services">
+    <div class="container">
+      <h2 id="newcastle-services">Sealant Services Available in Newcastle</h2>
+      <div class="location-services">
+        <div class="location-service-item">Bathroom Sealant &amp; Resealing</div>
+        <div class="location-service-item">Kitchen Worktop &amp; Splashback Mastic</div>
+        <div class="location-service-item">Window &amp; Door Frame Sealing</div>
+        <div class="location-service-item">Floor Perimeter &amp; Skirting Sealant</div>
+        <div class="location-service-item">External Brickwork &amp; Expansion Joints</div>
+        <div class="location-service-item">New Build Sealant Packages</div>
+        <div class="location-service-item">Commercial &amp; Industrial Sealant</div>
+        <div class="location-service-item">Fire-Rated Sealant Application</div>
+        <div class="location-service-item">Expansion &amp; Movement Joint Sealing</div>
+        <div class="location-service-item">Air Testing Sealant</div>
+      </div>
+      <div class="btn-group mt-2">
+        <a href="/contact" class="btn btn--primary">Request a Free Quote</a>
+        <a href="/services" class="btn btn--outline">View All Services</a>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Free Quote for Newcastle Sealant Work"
+    description="Get a free, no-obligation quote for domestic or commercial mastic and sealant work in Newcastle upon Tyne."
+    buttonText="Request a Free Quote"
+  />
+</Layout>
+
+<style>
+  .location-intro {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem,5vw,5rem); align-items: start;
+  }
+  .location-intro__image { aspect-ratio: 4/5; overflow: hidden; position: sticky; top: 6rem; }
+  .location-intro__image img { width: 100%; height: 100%; object-fit: cover; }
+
+  @media (max-width: 767px) {
+    .location-intro { grid-template-columns: 1fr; }
+    .location-intro__image { position: static; aspect-ratio: 16/9; }
+  }
+</style>

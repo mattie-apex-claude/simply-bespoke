@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTABanner from '../components/CTABanner.astro';
+import * as imgs from '../data/images';
+---
+
+<Layout
+  title="Mastic & Sealant Specialists Gateshead | Simply Bespoke"
+  description="Professional mastic and sealant services in Gateshead and across Tyneside. Commercial new build sealant, domestic bathroom and kitchen sealing. Free no-obligation quotes."
+>
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <span class="eyebrow eyebrow--white">Gateshead</span>
+      <h1>Mastic &amp; Sealant Specialists in Gateshead</h1>
+      <p>Professional domestic and commercial sealant services across Gateshead and the surrounding Tyneside area.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="gateshead-layout">
+        <div>
+          <span class="eyebrow">Gateshead Coverage</span>
+          <h2>Simply Bespoke in Gateshead</h2>
+          <div class="prose">
+            <p>Simply Bespoke provides professional mastic and sealant services throughout Gateshead and the wider Tyneside area. Gateshead's mix of established residential areas and significant commercial and regeneration activity creates demand across the full spectrum of our sealant services.</p>
+            <p>For domestic clients in Gateshead, we provide professional bathroom and kitchen sealant services, window and door sealing and external brickwork and joint sealant work. For commercial clients, we offer the full range of commercial sealant contracting including new build packages, expansion joint sealing and specialist applications.</p>
+            <h3>Commercial Sealant in Gateshead</h3>
+            <p>Gateshead's continued commercial and residential development, including significant regeneration projects alongside the Tyne, creates strong demand for professional commercial sealant contractors. Simply Bespoke works with developers and main contractors on projects of all scales across the area.</p>
+          </div>
+        </div>
+        <div class="gateshead-image-stack">
+          <img src={imgs.external[2]} alt="External sealant work completed in Gateshead" loading="lazy" />
+          <img src={imgs.internal[4]} alt="Commercial internal sealant application" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="gateshead-services">
+    <div class="container">
+      <h2 id="gateshead-services">Sealant Services Available in Gateshead</h2>
+      <div class="location-services">
+        <div class="location-service-item">Bathroom Sealant &amp; Resealing</div>
+        <div class="location-service-item">Kitchen Worktop &amp; Splashback Mastic</div>
+        <div class="location-service-item">Window &amp; Door Frame Sealing</div>
+        <div class="location-service-item">Floor &amp; Skirting Sealant</div>
+        <div class="location-service-item">External Joint &amp; Brickwork Sealing</div>
+        <div class="location-service-item">New Build Sealant Packages</div>
+        <div class="location-service-item">Commercial Sealant Application</div>
+        <div class="location-service-item">Expansion &amp; Movement Joint Sealing</div>
+      </div>
+      <div class="btn-group mt-2">
+        <a href="/contact" class="btn btn--primary">Request a Free Quote</a>
+        <a href="/services" class="btn btn--outline">View All Services</a>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Free Quote for Gateshead Sealant Work"
+    description="Get a free, no-obligation quote for domestic or commercial mastic and sealant work in Gateshead."
+    buttonText="Request a Free Quote"
+  />
+</Layout>
+
+<style>
+  .gateshead-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem,5vw,5rem); align-items: start;
+  }
+  .gateshead-image-stack { display: flex; flex-direction: column; gap: 4px; }
+  .gateshead-image-stack img { width: 100%; object-fit: cover; aspect-ratio: 16/9; }
+
+  @media (max-width: 767px) {
+    .gateshead-layout { grid-template-columns: 1fr; }
+  }
+</style>

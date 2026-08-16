@@ -1,0 +1,489 @@
+---
+import { reviews, overallRating, totalReviews } from '../data/reviews';
+
+// Reviews longer than this character count get a Read More toggle
+const COLLAPSE_AT = 200;
+
+// Split review text into paragraphs for proper HTML rendering
+function paras(text: string): string[] {
+  return text.split(/\n+/).filter(s => s.trim().length > 0);
+}
+---
+
+<section class="rc-section" aria-labelledby="reviews-carousel-heading">
+  <div class="container">
+
+    <!-- Rating header -->
+    <div class="rc-header">
+      <div class="rc-header__rating" aria-label={`${overallRating} out of 5 — ${totalReviews} Google Reviews`}>
+        <!-- Google G -->
+        <svg class="rc-header__g" width="32" height="32" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        <div class="rc-header__score">
+          <span class="rc-header__num">{overallRating}</span>
+          <span class="rc-header__denom">&thinsp;/&thinsp;5</span>
+        </div>
+        <div class="rc-header__meta">
+          <div class="rc-header__stars" aria-hidden="true">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <p class="rc-header__count">{totalReviews} Google Reviews</p>
+        </div>
+      </div>
+      <h2 id="reviews-carousel-heading" class="rc-header__title">What Our Customers Say</h2>
+    </div>
+
+  </div>
+
+  <!-- Carousel viewport (full-width for edge-to-edge feel) -->
+  <div class="rc-viewport" id="rc-viewport" aria-live="polite" aria-atomic="false">
+    <div class="rc-track" id="rc-track" role="list">
+      {reviews.map((r, i) => {
+        const paragraphs = paras(r.text);
+        const isLong = r.text.length > COLLAPSE_AT;
+        return (
+          <article
+            class={`rc-card${isLong ? ' rc-card--collapsible' : ''}`}
+            id={`rc-card-${i}`}
+            role="listitem"
+            aria-label={`Review by ${r.name}`}
+          >
+            <div class="rc-card__quote" aria-hidden="true">"</div>
+            <div class="rc-card__body">
+              <div class={`rc-card__text-wrap${isLong ? ' is-collapsed' : ''}`} id={`rc-wrap-${i}`}>
+                {paragraphs.map(p => <p class="rc-card__para">{p}</p>)}
+              </div>
+              {isLong && (
+                <button
+                  class="rc-card__more"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls={`rc-wrap-${i}`}
+                  data-index={i}
+                >
+                  Read more
+                </button>
+              )}
+            </div>
+            <footer class="rc-card__footer">
+              <p class="rc-card__name">{r.name}</p>
+              <div class="rc-card__source">
+                <svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                </svg>
+                <span>{r.source}</span>
+              </div>
+            </footer>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="container">
+    <div class="rc-controls">
+      <button class="rc-btn" id="rc-prev" aria-label="Previous reviews" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <p class="rc-counter" id="rc-counter" aria-live="polite" aria-atomic="true"></p>
+      <button class="rc-btn" id="rc-next" aria-label="Next reviews">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+    <div class="rc-footer-link">
+      <a href="/reviews" class="btn btn--outline">Read All {totalReviews} Reviews</a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  const viewport  = document.getElementById('rc-viewport') as HTMLElement | null;
+  const track     = document.getElementById('rc-track') as HTMLElement | null;
+  const prevBtn   = document.getElementById('rc-prev') as HTMLButtonElement | null;
+  const nextBtn   = document.getElementById('rc-next') as HTMLButtonElement | null;
+  const counter   = document.getElementById('rc-counter') as HTMLElement | null;
+
+  if (!viewport || !track || !prevBtn || !nextBtn) return;
+
+  const cards = Array.from(track.querySelectorAll<HTMLElement>('.rc-card'));
+  const total = cards.length;
+  const GAP   = 24; // px — matches CSS gap
+
+  let current = 0;
+  let autoTimer: ReturnType<typeof setInterval> | null = null;
+  const AUTO_MS = 5500;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── Responsive: number of visible cards ──────────────────────────────────
+  function getVisible(): number {
+    if (window.innerWidth >= 1024) return 3;
+    if (window.innerWidth >= 600)  return 2;
+    return 1;
+  }
+
+  function getMax(): number {
+    return Math.max(0, total - getVisible());
+  }
+
+  // ── Set card widths so they fill the viewport exactly ────────────────────
+  function setWidths() {
+    const vw  = viewport.clientWidth;
+    const vis = getVisible();
+    const w   = Math.floor((vw - (vis - 1) * GAP) / vis);
+    cards.forEach(c => {
+      c.style.width    = `${w}px`;
+      c.style.flexShrink = '0';
+    });
+  }
+
+  // ── Slide to position ─────────────────────────────────────────────────────
+  function go(n: number, animate = true) {
+    current = Math.max(0, Math.min(n, getMax()));
+
+    const cardW  = cards[0]?.offsetWidth ?? 0;
+    const offset = current * (cardW + GAP);
+
+    if (!animate || reduced) {
+      track.style.transition = 'none';
+      track.style.transform  = `translateX(-${offset}px)`;
+      // Force reflow before re-enabling transition
+      void track.offsetWidth;
+      track.style.transition = '';
+    } else {
+      track.style.transform = `translateX(-${offset}px)`;
+    }
+
+    // Update counter
+    const vis = getVisible();
+    if (counter) {
+      const from = current + 1;
+      const to   = Math.min(current + vis, total);
+      counter.textContent = `${from}–${to} of ${total}`;
+    }
+
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current >= getMax();
+  }
+
+  // ── Auto-scroll ───────────────────────────────────────────────────────────
+  function startAuto() {
+    if (reduced) return;
+    stopAuto();
+    autoTimer = setInterval(() => {
+      go(current >= getMax() ? 0 : current + 1);
+    }, AUTO_MS);
+  }
+  function stopAuto() {
+    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+  }
+
+  // ── Controls ──────────────────────────────────────────────────────────────
+  prevBtn.addEventListener('click', () => { go(current - 1); stopAuto(); });
+  nextBtn.addEventListener('click', () => { go(current + 1); stopAuto(); });
+
+  // Pause on hover
+  viewport.addEventListener('mouseenter', stopAuto);
+  viewport.addEventListener('mouseleave', startAuto);
+
+  // Keyboard
+  viewport.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'ArrowLeft')  { go(current - 1); stopAuto(); }
+    if (e.key === 'ArrowRight') { go(current + 1); stopAuto(); }
+  });
+
+  // ── Touch / swipe ─────────────────────────────────────────────────────────
+  let touchX0 = 0;
+  let touchY0 = 0;
+  let swiping = false;
+
+  viewport.addEventListener('touchstart', (e: TouchEvent) => {
+    touchX0 = e.touches[0].clientX;
+    touchY0 = e.touches[0].clientY;
+    swiping = false;
+  }, { passive: true });
+
+  viewport.addEventListener('touchmove', (e: TouchEvent) => {
+    const dx = e.touches[0].clientX - touchX0;
+    const dy = e.touches[0].clientY - touchY0;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 6) swiping = true;
+  }, { passive: true });
+
+  viewport.addEventListener('touchend', (e: TouchEvent) => {
+    if (!swiping) return;
+    const dx = e.changedTouches[0].clientX - touchX0;
+    if (Math.abs(dx) > 48) {
+      stopAuto();
+      go(dx < 0 ? current + 1 : current - 1);
+    }
+    swiping = false;
+  });
+
+  // ── Read More ─────────────────────────────────────────────────────────────
+  track.querySelectorAll<HTMLButtonElement>('.rc-card__more').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx  = btn.dataset.index;
+      const wrap = document.getElementById(`rc-wrap-${idx}`);
+      if (!wrap) return;
+      const expanding = wrap.classList.toggle('is-collapsed');
+      // is-collapsed toggled OFF means expanding; toggled ON means collapsing
+      const isNowExpanded = !wrap.classList.contains('is-collapsed');
+      btn.textContent = isNowExpanded ? 'Read less' : 'Read more';
+      btn.setAttribute('aria-expanded', String(isNowExpanded));
+    });
+  });
+
+  // ── Resize ────────────────────────────────────────────────────────────────
+  let resizeTimer: ReturnType<typeof setTimeout>;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      setWidths();
+      go(current, false);
+    }, 100);
+  });
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  setWidths();
+  go(0, false);
+  startAuto();
+})();
+</script>
+
+<style>
+  /* ── Section ── */
+  .rc-section {
+    padding-block: var(--section-y);
+    background: var(--color-white);
+    border-block: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  /* ── Rating header ── */
+  .rc-header { text-align: center; margin-bottom: clamp(2.5rem, 4vw, 3.5rem); }
+
+  .rc-header__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    padding: .625rem 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .rc-header__g { flex-shrink: 0; }
+
+  .rc-header__score {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-navy);
+    white-space: nowrap;
+  }
+  .rc-header__denom { font-size: 1rem; color: var(--color-muted); }
+
+  .rc-header__stars {
+    display: flex; gap: .1rem;
+    color: #fbbc04;
+    font-size: 1.1rem;
+    line-height: 1;
+    margin-bottom: .2rem;
+  }
+
+  .rc-header__count {
+    font-size: .78rem; font-weight: 600;
+    letter-spacing: .04em; text-transform: uppercase;
+    color: var(--color-muted);
+    max-width: none; margin: 0;
+  }
+
+  .rc-header__title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  /* ── Carousel viewport ── */
+  .rc-viewport {
+    overflow: hidden;
+    padding-inline: var(--container-pad);
+    max-width: var(--container-max);
+    margin-inline: auto;
+    cursor: grab;
+  }
+  .rc-viewport:active { cursor: grabbing; }
+
+  /* ── Track ── */
+  .rc-track {
+    display: flex;
+    gap: 1.5rem; /* = GAP constant in JS */
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* ── Card ── */
+  .rc-card {
+    /* Width set by JS — CSS fallback for SSR */
+    flex: 0 0 calc((100% - 3rem) / 3);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    transition: box-shadow var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
+  }
+  .rc-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .rc-card__quote {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    line-height: .8;
+    color: var(--color-blue);
+    opacity: .25;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* Text collapse */
+  .rc-card__body { flex: 1; }
+
+  .rc-card__text-wrap.is-collapsed {
+    position: relative;
+    max-height: 5.5rem;
+    overflow: hidden;
+  }
+  .rc-card__text-wrap.is-collapsed::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2.5rem;
+    background: linear-gradient(transparent, var(--color-bg));
+    pointer-events: none;
+  }
+
+  .rc-card__para {
+    font-size: .9rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    max-width: none;
+    margin-bottom: .5rem;
+  }
+  .rc-card__para:last-child { margin-bottom: 0; }
+
+  .rc-card__more {
+    display: inline-flex;
+    align-items: center;
+    margin-top: .5rem;
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--color-blue);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: color var(--dur-fast) ease;
+  }
+  .rc-card__more:hover { color: var(--color-blue-hover); }
+
+  /* Footer */
+  .rc-card__footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+  }
+  .rc-card__name {
+    font-family: var(--font-body);
+    font-size: .875rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    max-width: none;
+    margin: 0;
+  }
+  .rc-card__source {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    flex-shrink: 0;
+  }
+
+  /* ── Controls ── */
+  .rc-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  .rc-btn {
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1.5px solid var(--color-border);
+    border-radius: 2px;
+    background: var(--color-white);
+    color: var(--color-navy);
+    cursor: pointer;
+    transition:
+      background var(--dur-fast) var(--ease-std),
+      border-color var(--dur-fast) var(--ease-std),
+      color var(--dur-fast) var(--ease-std),
+      transform var(--dur-fast) var(--ease-out);
+  }
+  .rc-btn:hover:not(:disabled) {
+    background: var(--color-navy);
+    border-color: var(--color-navy);
+    color: #fff;
+    transform: scale(1.05);
+  }
+  .rc-btn:disabled { opacity: .3; cursor: not-allowed; }
+
+  .rc-counter {
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    min-width: 8ch;
+    text-align: center;
+    margin: 0;
+  }
+
+  .rc-footer-link {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  /* ── Responsive CSS fallbacks (before JS runs) ── */
+  @media (max-width: 1023px) {
+    .rc-card { flex-basis: calc((100% - 1.5rem) / 2); }
+  }
+  @media (max-width: 599px) {
+    .rc-card { flex-basis: 100%; }
+  }
+</style>

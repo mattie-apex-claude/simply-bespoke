@@ -1,0 +1,76 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import * as imgs from '../../data/images';
+---
+
+<Layout
+  title="Expansion & Movement Joint Sealing | Simply Bespoke, North East England"
+  description="Professional expansion and movement joint sealant services for commercial and residential buildings across the North East. Durable, flexible sealant application to specification."
+>
+  <section class="section section--navy exp-hero" aria-labelledby="exp-h1">
+    <div class="container">
+      <div class="exp-hero__grid">
+        <div>
+          <span class="eyebrow eyebrow--white">Commercial Service</span>
+          <h1 id="exp-h1">Expansion &amp; Movement Joint Sealing</h1>
+          <p>Professional expansion joint and movement joint sealant application for buildings of all types across the North East.</p>
+          <div class="btn-group">
+            <a href="/contact" class="btn btn--white">Request a Quote</a>
+            <a href="/commercial" class="btn btn--outline-white">All Commercial Services</a>
+          </div>
+        </div>
+        <div class="exp-hero__image">
+          <img src={imgs.external[4]} alt="Expansion joint sealant application on a commercial building" loading="eager" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Movement Joint Specialist</span>
+      <h2>Expansion &amp; Movement Joint Sealant</h2>
+      <div class="prose">
+        <p>Expansion and movement joints are designed into buildings to accommodate thermal expansion, settlement and structural movement. Correctly sealing these joints is critical — the wrong sealant product, or poor application, will fail prematurely and compromise the performance of the joint.</p>
+        <p>Simply Bespoke provides professional movement joint sealing services across the North East, using appropriate sealant products with the right movement capability, adhesion and durability for each specific application.</p>
+        <h3>Movement Joint Services</h3>
+        <ul>
+          <li>Building expansion joint sealing</li>
+          <li>Structural movement joint sealant</li>
+          <li>Floor-to-wall and floor-to-floor movement joints</li>
+          <li>Cladding panel and façade joint sealing</li>
+          <li>Perimeter joint sealing at structural interfaces</li>
+          <li>Failed joint sealant removal and replacement</li>
+          <li>High-movement sealant applications</li>
+        </ul>
+        <h3>Product Selection</h3>
+        <p>The correct sealant for a movement joint must accommodate the designed movement without adhesion failure or cohesive failure. We select sealant products based on the joint width, movement requirement, substrate type and environmental exposure — ensuring longevity and performance.</p>
+      </div>
+      <div class="btn-group">
+        <a href="/contact" class="btn btn--primary">Request a Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Movement Joint Sealant Across the North East"
+    description="Professional expansion and movement joint sealing for commercial and residential developments. Simply Bespoke delivers high-quality results across the region."
+    buttonText="Get in Touch"
+  />
+</Layout>
+
+<style>
+  .exp-hero { padding-block: clamp(4rem,7vw,7rem); }
+  .exp-hero__grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem,5vw,5rem); align-items: center;
+  }
+  .exp-hero__image { aspect-ratio: 4/3; overflow: hidden; }
+  .exp-hero__image img { width: 100%; height: 100%; object-fit: cover; }
+
+  @media (max-width: 767px) {
+    .exp-hero__grid { grid-template-columns: 1fr; }
+    .exp-hero__image { order: -1; aspect-ratio: 16/9; }
+  }
+</style>

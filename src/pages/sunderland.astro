@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTABanner from '../components/CTABanner.astro';
+import * as imgs from '../data/images';
+---
+
+<Layout
+  title="Mastic & Sealant Specialists Sunderland | Simply Bespoke"
+  description="Professional mastic and sealant services in Sunderland and across Wearside. Domestic bathroom and kitchen sealing, commercial new build sealant and more. Free quotes."
+>
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <span class="eyebrow eyebrow--white">Sunderland</span>
+      <h1>Mastic &amp; Sealant Specialists in Sunderland</h1>
+      <p>Professional mastic and sealant services for domestic and commercial properties across Sunderland and Wearside.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sunderland-layout">
+        <div>
+          <span class="eyebrow">Sunderland Coverage</span>
+          <h2>Simply Bespoke in Sunderland</h2>
+          <div class="prose">
+            <p>Domestic and commercial sealant services across Sunderland and Wearside. Bathroom resealing, kitchen mastic, window sealing and new build sealant packages for contractors and developers across the area.</p>
+            <h3>Domestic Services in Sunderland</h3>
+            <p>For Sunderland homeowners, we offer the full range of domestic sealant services — bathroom and shower silicone, kitchen worktop and splashback mastic, window frame sealing and external sealant work. Clean, professional results that protect your home and stand the test of time.</p>
+            <h3>Commercial Work in Sunderland</h3>
+            <p>Simply Bespoke works with contractors and developers on commercial and new build projects across Sunderland and Wearside, delivering professional sealant application to specification and on schedule.</p>
+          </div>
+        </div>
+        <div class="sunderland-images">
+          <img src={imgs.bathroom[12]} alt="Bathroom sealant work in Sunderland" loading="lazy" />
+          <img src={imgs.external[1]} alt="External sealant work" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="sunderland-services">
+    <div class="container">
+      <h2 id="sunderland-services">Sealant Services Available in Sunderland</h2>
+      <div class="location-services">
+        <div class="location-service-item">Bathroom Sealant &amp; Resealing</div>
+        <div class="location-service-item">Kitchen Worktop &amp; Splashback Mastic</div>
+        <div class="location-service-item">Window &amp; Door Frame Sealing</div>
+        <div class="location-service-item">Floor Perimeter &amp; Skirting Sealant</div>
+        <div class="location-service-item">External Brickwork Sealant</div>
+        <div class="location-service-item">New Build Sealant Packages</div>
+        <div class="location-service-item">Commercial Sealant Application</div>
+        <div class="location-service-item">Expansion Joint Sealing</div>
+      </div>
+      <div class="btn-group mt-2">
+        <a href="/contact" class="btn btn--primary">Request a Free Quote</a>
+        <a href="/services" class="btn btn--outline">View All Services</a>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Free Quote for Sunderland Sealant Work"
+    description="Get a free, no-obligation quote for domestic or commercial mastic and sealant work in Sunderland."
+    buttonText="Request a Free Quote"
+  />
+</Layout>
+
+<style>
+  .sunderland-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem,5vw,5rem); align-items: start;
+  }
+  .sunderland-images { display: flex; flex-direction: column; gap: 4px; }
+  .sunderland-images img { width: 100%; object-fit: cover; aspect-ratio: 4/3; }
+
+  @media (max-width: 767px) {
+    .sunderland-layout { grid-template-columns: 1fr; }
+  }
+</style>

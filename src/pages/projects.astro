@@ -1,0 +1,161 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTABanner from '../components/CTABanner.astro';
+import * as imgs from '../data/images';
+
+// Every available project image
+const allProjects = [
+  // Bathroom (18)
+  { src: imgs.bathroom[0],  alt: 'Bathroom silicone sealant — professional finish',        category: 'Bathroom' },
+  { src: imgs.bathroom[1],  alt: 'Bathroom shower area sealant',                           category: 'Bathroom' },
+  { src: imgs.bathroom[2],  alt: 'Bath silicone resealing',                                category: 'Bathroom' },
+  { src: imgs.bathroom[3],  alt: 'Bathroom wet room silicone seal',                        category: 'Bathroom' },
+  { src: imgs.bathroom[4],  alt: 'Shower tray sealant finish',                             category: 'Bathroom' },
+  { src: imgs.bathroom[5],  alt: 'Bathroom sealant work detail',                           category: 'Bathroom' },
+  { src: imgs.bathroom[6],  alt: 'Bathroom silicone application',                          category: 'Bathroom' },
+  { src: imgs.bathroom[7],  alt: 'Bathroom sealant — completed work',                      category: 'Bathroom' },
+  { src: imgs.bathroom[8],  alt: 'Bathroom mastic sealing',                                category: 'Bathroom' },
+  { src: imgs.bathroom[9],  alt: 'Bathroom silicone joint',                                category: 'Bathroom' },
+  { src: imgs.bathroom[10], alt: 'Bathroom sealant application',                           category: 'Bathroom' },
+  { src: imgs.bathroom[11], alt: 'Bathroom silicone reseal',                               category: 'Bathroom' },
+  { src: imgs.bathroom[12], alt: 'Bathroom mastic — clean finish',                         category: 'Bathroom' },
+  { src: imgs.bathroom[13], alt: 'Bathroom sealant work',                                  category: 'Bathroom' },
+  { src: imgs.bathroom[14], alt: 'Shower silicone sealant',                                category: 'Bathroom' },
+  { src: imgs.bathroom[15], alt: 'Bathroom tile sealant',                                  category: 'Bathroom' },
+  { src: imgs.bathroom[16], alt: 'Bath sealing — finished result',                         category: 'Bathroom' },
+  { src: imgs.bathroom[17], alt: 'Bathroom silicone — completed',                          category: 'Bathroom' },
+  // Kitchen (5)
+  { src: imgs.kitchen[0],   alt: 'Kitchen worktop mastic sealant',                         category: 'Kitchen' },
+  { src: imgs.kitchen[1],   alt: 'Kitchen splashback sealant',                             category: 'Kitchen' },
+  { src: imgs.kitchen[2],   alt: 'Kitchen sink surround sealant',                          category: 'Kitchen' },
+  { src: imgs.kitchen[3],   alt: 'Kitchen upstand mastic',                                 category: 'Kitchen' },
+  { src: imgs.kitchen[4],   alt: 'Kitchen sealant — finished',                             category: 'Kitchen' },
+  // Windows & Doors (9)
+  { src: imgs.windowsDoors[0], alt: 'Window frame sealant',                                category: 'Windows & Doors' },
+  { src: imgs.windowsDoors[1], alt: 'Window sealant — internal finish',                    category: 'Windows & Doors' },
+  { src: imgs.windowsDoors[2], alt: 'Door frame mastic sealing',                           category: 'Windows & Doors' },
+  { src: imgs.windowsDoors[3], alt: 'Window frame perimeter sealant',                      category: 'Windows & Doors' },
+  { src: imgs.windowsDoors[4], alt: 'Window sealant application',                          category: 'Windows & Doors' },
+  { src: imgs.windowsDoors[5], alt: 'Door sealant — clean finish',                         category: 'Windows & Doors' },
+  { src: imgs.windowsDoors[6], alt: 'Window frame mastic',                                 category: 'Windows & Doors' },
+  { src: imgs.windowsDoors[7], alt: 'Window sealant joint',                                category: 'Windows & Doors' },
+  { src: imgs.windowsDoors[8], alt: 'Window and door sealing',                             category: 'Windows & Doors' },
+  // Internal (8)
+  { src: imgs.internal[0],  alt: 'Internal sealant application',                           category: 'Internal' },
+  { src: imgs.internal[1],  alt: 'Internal mastic — finished result',                      category: 'Internal' },
+  { src: imgs.internal[2],  alt: 'Floor perimeter sealant',                                category: 'Internal' },
+  { src: imgs.internal[3],  alt: 'Internal commercial sealant',                            category: 'Internal' },
+  { src: imgs.internal[4],  alt: 'Internal mastic sealing',                                category: 'Internal' },
+  { src: imgs.internal[5],  alt: 'Internal sealant work',                                  category: 'Internal' },
+  { src: imgs.internal[6],  alt: 'Internal joint sealing',                                 category: 'Internal' },
+  { src: imgs.internal[7],  alt: 'Internal finishing sealant',                             category: 'Internal' },
+  // External (9)
+  { src: imgs.external[0],  alt: 'External brickwork sealant',                             category: 'External' },
+  { src: imgs.external[1],  alt: 'External mastic sealing',                                category: 'External' },
+  { src: imgs.external[2],  alt: 'External joint sealant',                                 category: 'External' },
+  { src: imgs.external[3],  alt: 'External brickwork sealant work',                        category: 'External' },
+  { src: imgs.external[4],  alt: 'External sealant application',                           category: 'External' },
+  { src: imgs.external[5],  alt: 'External mastic — weatherproofing',                      category: 'External' },
+  { src: imgs.external[6],  alt: 'External joint sealing',                                 category: 'External' },
+  { src: imgs.external[7],  alt: 'External sealant work',                                  category: 'External' },
+  { src: imgs.external[8],  alt: 'External brickwork and sealant',                         category: 'External' },
+];
+---
+
+<Layout
+  title="Sealant Projects Gallery | Simply Bespoke, North East England"
+  description="Browse completed mastic and sealant projects by Simply Bespoke across the North East of England. Bathroom, kitchen, window, external and commercial sealant work."
+>
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <span class="eyebrow eyebrow--white">Our Work</span>
+      <h1>Completed Projects</h1>
+      <p>A showcase of completed mastic and sealant work across the North East — domestic and commercial projects delivered to a consistently high standard.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="projects-h2">
+    <div class="container">
+      <div class="section__header">
+        <span class="eyebrow">Project Gallery</span>
+        <h2 id="projects-h2">Simply Bespoke — Completed Work</h2>
+        <p class="text-muted">Real project photography from domestic and commercial sealant work across the North East.</p>
+      </div>
+
+      <!-- Feature grid -->
+      <div class="projects-feature-grid">
+        {allProjects.slice(0, 6).map((p, i) => (
+          <div class={`projects-feature-grid__item${i === 0 ? ' projects-feature-grid__item--large' : ''}`}>
+            <img src={p.src} alt={p.alt} loading={i < 3 ? 'eager' : 'lazy'} />
+            <div class="projects-feature-grid__label" aria-hidden="true">{p.category}</div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Standard grid -->
+      <div class="projects-standard-grid" style="margin-top:4px">
+        {allProjects.slice(6).map(p => (
+          <div class="projects-standard-grid__item">
+            <img src={p.src} alt={p.alt} loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Ready to Start Your Project?"
+    description="Get a free, no-obligation quote for domestic or commercial mastic and sealant work across the North East."
+  />
+</Layout>
+
+<style>
+  .projects-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-auto-rows: 320px;
+    gap: 4px;
+  }
+  .projects-feature-grid__item {
+    overflow: hidden; position: relative; background: var(--color-border);
+  }
+  .projects-feature-grid__item--large {
+    grid-column: span 2; grid-row: span 2;
+  }
+  .projects-feature-grid__item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .4s ease;
+  }
+  .projects-feature-grid__item:hover img { transform: scale(1.03); }
+
+  .projects-feature-grid__label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: .75rem 1rem;
+    background: linear-gradient(transparent, rgba(27,42,74,.7));
+    color: #fff; font-size: .75rem; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
+    opacity: 0; transition: opacity var(--transition);
+  }
+  .projects-feature-grid__item:hover .projects-feature-grid__label { opacity: 1; }
+
+  .projects-standard-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 4px;
+  }
+  .projects-standard-grid__item { overflow: hidden; aspect-ratio: 1; background: var(--color-border); }
+  .projects-standard-grid__item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .4s ease;
+  }
+  .projects-standard-grid__item:hover img { transform: scale(1.04); }
+
+  @media (max-width: 767px) {
+    .projects-feature-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: 200px;
+    }
+    .projects-feature-grid__item--large { grid-column: span 2; grid-row: span 1; }
+    .projects-standard-grid { grid-template-columns: repeat(2,1fr); }
+  }
+</style>

@@ -1,0 +1,72 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import * as imgs from '../../data/images';
+---
+
+<Layout
+  title="New Build Sealants | Simply Bespoke, North East England"
+  description="Professional new build sealant packages for residential and commercial developments across the North East. Internal and external sealant application to specification. Free quotes."
+>
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <span class="eyebrow eyebrow--white">Commercial Service</span>
+      <h1>New Build Sealants</h1>
+      <p>Professional sealant packages for new residential and commercial developments across the North East of England.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="service-intro">
+        <div class="service-intro__image">
+          <img src={imgs.internal[4]} alt="New build internal sealant application" loading="lazy" />
+        </div>
+        <div>
+          <span class="eyebrow">New Build Specialist</span>
+          <h2>Sealant Packages for New Developments</h2>
+          <div class="prose">
+            <p>Simply Bespoke provides professional sealant packages for new build residential and commercial developments across the North East. We work directly with main contractors, site managers and housebuilders to deliver complete sealant application on schedule, to the required specification.</p>
+            <p>We have experience working on a variety of new build projects, from individual new homes through to larger housing developments and commercial builds. Our commercial client list includes established housebuilders and developers operating across the region.</p>
+            <h3>New Build Sealant Services</h3>
+            <ul>
+              <li>Full internal sealant application packages</li>
+              <li>Bathroom and wet room sealing</li>
+              <li>Kitchen sealant application</li>
+              <li>Window and door frame sealing</li>
+              <li>External perimeter and joint sealing</li>
+              <li>Floor perimeter and skirting sealant</li>
+              <li>Communal area and corridor sealing</li>
+              <li>Sign-off ready finishes to specification</li>
+            </ul>
+            <p>We are experienced in working alongside other trades on busy new build sites and understand the importance of clear communication, reliability and delivering work that meets handover requirements.</p>
+          </div>
+          <div class="btn-group">
+            <a href="/contact" class="btn btn--primary">Discuss Your Project</a>
+            <a href="/commercial" class="btn btn--outline">All Commercial Services</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--navy" aria-label="New build sealant work examples">
+    <div class="container">
+      <div class="section__header section__header--center">
+        <span class="eyebrow eyebrow--white">The Work</span>
+        <h2>New Build Project Gallery</h2>
+      </div>
+      <div class="service-gallery">
+        {[...imgs.internal.slice(0,3), ...imgs.external.slice(0,3)].map((src, i) => (
+          <img src={src} alt={`New build sealant work example ${i + 1}`} loading="lazy" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Looking for a Reliable New Build Sealant Contractor?"
+    description="Simply Bespoke works with contractors and developers across the North East. Get in touch to discuss your next project."
+    buttonText="Get in Touch"
+  />
+</Layout>

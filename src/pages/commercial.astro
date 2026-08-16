@@ -1,0 +1,175 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTABanner from '../components/CTABanner.astro';
+import LogoStrip from '../components/LogoStrip.astro';
+import * as imgs from '../data/images';
+
+const services = [
+  { href: '/services/new-build-sealants',            title: 'New Build Sealants',             desc: 'Full sealant packages for new residential and commercial developments — internal and external application to specification.' },
+  { href: '/services/expansion-movement-joints',     title: 'Expansion & Movement Joints',    desc: 'Professional expansion joint and movement joint sealing for buildings of all types, ensuring long-term performance.' },
+  { href: '/services/fire-rated-sealants',           title: 'Fire-Rated Sealants',            desc: 'Specialist fire-rated sealant application to joints, penetrations and service passages, correctly installed to specification.' },
+  { href: '/services/industrial-commercial-sealants',title: 'Industrial & Commercial Sealants',desc: 'Sealant and mastic application for retail, office, industrial and mixed-use developments across the North East.' },
+  { href: '/services/air-testing-sealants',          title: 'Air Testing Sealants',           desc: 'Targeted sealant application to improve building envelope airtightness ahead of pressure testing.' },
+];
+---
+
+<Layout
+  title="Commercial Mastic & Sealant Services | Simply Bespoke, North East England"
+  description="Professional commercial mastic and sealant contractor serving the North East. New build sealants, expansion joints, fire-rated sealants, industrial and air testing sealant application. Free quotes."
+>
+  <!-- Commercial hero — full-width image with navy overlay -->
+  <section class="commercial-hero" aria-label="Commercial sealant services">
+    <div class="commercial-hero__bg" aria-hidden="true">
+      <img src={imgs.external[4]} alt="" loading="eager" />
+    </div>
+    <div class="commercial-hero__overlay" aria-hidden="true"></div>
+    <div class="container">
+      <div class="commercial-hero__content">
+        <span class="eyebrow eyebrow--white">For Contractors &amp; Developers</span>
+        <h1>Commercial Mastic &amp; Sealant Services</h1>
+        <p>Supporting contractors, developers and businesses with professional sealant application across projects of every scale in the North East.</p>
+        <div class="btn-group">
+          <a href="/contact" class="btn btn--primary">Request a Quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="section">
+    <div class="container">
+      <div class="commercial-intro">
+        <div class="commercial-intro__text">
+          <span class="eyebrow">Commercial Sealant Contractor</span>
+          <h2>Professional Sealant Services for Commercial Projects</h2>
+          <div class="prose">
+            <p>Commercial mastic and sealant services across the North East. We work with contractors, developers and site managers to deliver quality sealant application on time, to specification.</p>
+            <p>New build packages, commercial fit-out, expansion joints, fire-rated sealants and more — covering the full scope of commercial sealant requirements.</p>
+          </div>
+        </div>
+        <div class="commercial-intro__image">
+          <img src={imgs.internal[3]} alt="Commercial internal sealant application" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section section--white" aria-labelledby="commercial-services-heading">
+    <div class="container">
+      <div class="section__header">
+        <span class="eyebrow">Commercial Services</span>
+        <h2 id="commercial-services-heading">What We Offer</h2>
+      </div>
+      <div class="commercial-services">
+        {services.map((s, i) => (
+          <a href={s.href} class="commercial-service-item">
+            <div class="commercial-service-item__num" aria-hidden="true">{String(i + 1).padStart(2,'0')}</div>
+            <div>
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+              <span class="service-tile__link">Learn more →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Image band — all external + internal images -->
+  <section class="commercial-image-band" aria-hidden="true">
+    {[imgs.external[0], imgs.external[1], imgs.external[2], imgs.external[3], imgs.external[4], imgs.external[5], imgs.internal[0], imgs.internal[1]].map(src => (
+      <div class="commercial-image-band__item">
+        <img src={src} alt="" loading="lazy" />
+      </div>
+    ))}
+  </section>
+
+  <!-- Capabilities -->
+  <section class="section" aria-labelledby="capabilities-heading">
+    <div class="container container--narrow">
+      <span class="eyebrow">Scope of Work</span>
+      <h2 id="capabilities-heading">Commercial Sealant Capabilities</h2>
+      <div class="prose">
+        <ul>
+          <li>New build residential and commercial sealant packages</li>
+          <li>Internal and external application</li>
+          <li>Expansion and movement joint sealing</li>
+          <li>Floor joint and perimeter sealing</li>
+          <li>Window and curtain wall sealant</li>
+          <li>Fire-rated sealant installation</li>
+          <li>Air testing sealant application</li>
+          <li>Cladding and façade sealing</li>
+          <li>Retail, office and industrial projects</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logo strip -->
+  <LogoStrip title="Organisations We Have Worked With" />
+
+  <CTABanner
+    title="Discuss Your Commercial Project"
+    description="Looking for a professional mastic and sealant contractor for your next development? Simply Bespoke works with contractors and developers across the North East."
+    buttonText="Get in Touch"
+  />
+</Layout>
+
+<style>
+  .commercial-hero {
+    position: relative; min-height: 72vh;
+    display: flex; align-items: center;
+    overflow: hidden; background: var(--color-navy);
+  }
+  .commercial-hero__bg { position: absolute; inset: 0; }
+  .commercial-hero__bg img { width: 100%; height: 100%; object-fit: cover; }
+  .commercial-hero__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(27,42,74,.94) 0%, rgba(27,42,74,.65) 60%, rgba(27,42,74,.3) 100%);
+  }
+  .commercial-hero__content {
+    position: relative; z-index: 1;
+    color: #fff; padding-block: 5rem; max-width: 640px;
+  }
+  .commercial-hero__content h1,
+  .commercial-hero__content p { color: #fff; }
+  .commercial-hero__content > p { color: rgba(255,255,255,.85); font-size: 1.1rem; max-width: 52ch; }
+
+  .commercial-intro {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem,5vw,5rem); align-items: start;
+  }
+  .commercial-intro__image { aspect-ratio: 4/3; overflow: hidden; }
+  .commercial-intro__image img { width: 100%; height: 100%; object-fit: cover; }
+
+  .commercial-services { display: flex; flex-direction: column; gap: 0; }
+  .commercial-service-item {
+    display: grid; grid-template-columns: 4rem 1fr;
+    gap: 1.5rem; align-items: start;
+    padding: 2rem 0; border-bottom: 1px solid var(--color-border);
+    transition: background var(--transition);
+  }
+  .commercial-service-item:first-child { border-top: 1px solid var(--color-border); }
+  .commercial-service-item:hover { background: #faf9f7; padding-inline: 1rem; margin-inline: -1rem; }
+  .commercial-service-item__num {
+    font-family: var(--font-display); font-size: 2rem; font-weight: 700;
+    color: var(--color-border); line-height: 1; padding-top: .2rem;
+  }
+  .commercial-service-item h3 { margin-bottom: .4rem; }
+  .commercial-service-item p { font-size: .9rem; color: var(--color-muted); max-width: none; margin-bottom: .5rem; }
+
+  .commercial-image-band {
+    display: grid; grid-template-columns: repeat(8,1fr);
+    height: 260px; gap: 3px;
+    overflow: hidden;
+  }
+  .commercial-image-band__item { overflow: hidden; }
+  .commercial-image-band__item img { width: 100%; height: 100%; object-fit: cover; }
+
+  @media (max-width: 767px) {
+    .commercial-intro { grid-template-columns: 1fr; }
+    .commercial-image-band { grid-template-columns: repeat(2,1fr); height: 400px; }
+    .commercial-service-item { grid-template-columns: 3rem 1fr; gap: 1rem; }
+  }
+</style>

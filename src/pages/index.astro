@@ -1,11 +1,258 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import CTABanner from '../components/CTABanner.astro';
+import LogoStrip from '../components/LogoStrip.astro';
+import ReviewCarousel from '../components/ReviewCarousel.astro';
+import * as imgs from '../data/images';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const domesticServices = [
+  { href: '/services/bathroom-sealant',          name: 'Bathroom Sealant',              category: 'Domestic' },
+  { href: '/services/kitchen-sealant',           name: 'Kitchen Sealant',               category: 'Domestic' },
+  { href: '/services/window-door-sealing',       name: 'Window & Door Sealing',         category: 'Domestic' },
+  { href: '/services/floors-skirting',           name: 'Floors & Skirting',             category: 'Domestic' },
+  { href: '/services/brickwork-expansion-joints',name: 'Brickwork & Expansion Joints',  category: 'Domestic' },
+];
+const commercialServices = [
+  { href: '/services/new-build-sealants',           name: 'New Build Sealants',             category: 'Commercial' },
+  { href: '/services/expansion-movement-joints',    name: 'Expansion & Movement Joints',    category: 'Commercial' },
+  { href: '/services/fire-rated-sealants',          name: 'Fire-Rated Sealants',            category: 'Commercial' },
+  { href: '/services/industrial-commercial-sealants',name: 'Industrial & Commercial',       category: 'Commercial' },
+  { href: '/services/air-testing-sealants',         name: 'Air Testing Sealants',           category: 'Commercial' },
+];
+
+const trustItems = [
+  'Domestic & Commercial Specialists',
+  'High-Quality Workmanship',
+  'Fully Insured',
+  'Free No-Obligation Quotes',
+  'Reliable & Professional Service',
+];
+
+const whyPoints = [
+  { title: 'Experienced Sealant Specialists',    desc: 'Dedicated mastic and sealant professionals with extensive experience across residential and commercial projects throughout the North East.' },
+  { title: 'Premium Products',                   desc: 'High-quality, durable sealant products suited to each application — ensuring long-lasting, visually clean results.' },
+  { title: 'Attention to Detail',                desc: 'Clean, precise application every time. Simply Bespoke takes pride in delivering a quality finish that genuinely stands out.' },
+  { title: 'Competitive Pricing',                desc: 'Professional results at fair prices. Request a free, no-obligation quote tailored to your project.' },
+  { title: 'Domestic & Commercial Expertise',    desc: 'From a single bathroom reseal to a large-scale new build development, we have the expertise and capability to deliver.' },
+  { title: 'Serving the North East',             desc: 'Based in the North East, covering Newcastle, Sunderland, Durham, Gateshead, Middlesbrough, Darlington and the wider region.' },
+];
+
+const locations = [
+  { href: '/newcastle',     name: 'Newcastle' },
+  { href: '/sunderland',    name: 'Sunderland' },
+  { href: '/durham',        name: 'Durham' },
+  { href: '/gateshead',     name: 'Gateshead' },
+  { href: '/middlesbrough', name: 'Middlesbrough' },
+  { href: '/darlington',    name: 'Darlington' },
+];
+
+const projectGallery = [
+  { src: imgs.bathroom[2],     alt: 'Bathroom silicone sealant — clean finished result' },
+  { src: imgs.kitchen[0],      alt: 'Kitchen worktop mastic sealant application' },
+  { src: imgs.windowsDoors[0], alt: 'Window frame sealant by Simply Bespoke' },
+  { src: imgs.internal[0],     alt: 'Internal sealant finishing' },
+  { src: imgs.external[1],     alt: 'External sealant application' },
+  { src: imgs.bathroom[3],     alt: 'Bathroom shower tray silicone seal' },
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="Simply Bespoke Ltd | Mastic & Sealant Specialists — North East England"
+  description="Professional domestic and commercial sealant specialists serving the North East of England. Expert mastic, silicone and sealant application for bathrooms, kitchens, windows, doors and commercial projects. Free quotes."
+>
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="hero" aria-label="Simply Bespoke — mastic and sealant specialists">
+    <div class="hero__copy">
+      <div class="hero__copy-inner">
+        <span class="eyebrow eyebrow--white">North East Sealant Specialists</span>
+        <h1>Precision Mastic &amp; Sealant Specialists Across the North East</h1>
+        <p class="hero__description">
+          Professional domestic and commercial sealant application, delivering clean finishes and long-lasting protection. From bathrooms and kitchens to large-scale commercial developments, Simply Bespoke provides high-quality mastic and sealant solutions trusted by homeowners, builders and contractors.
+        </p>
+        <div class="btn-group">
+          <a href="/contact" class="btn btn--primary">Request a Free Quote</a>
+          <a href="/projects" class="btn btn--outline-white">View Our Work</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero__visual">
+      <img
+        src={imgs.bathroom[0]}
+        alt="Professional sealant application by Simply Bespoke"
+        loading="eager"
+      />
+    </div>
+  </section>
+
+  <!-- ═══════════ TRUST BAR ═══════════ -->
+  <div class="trust-bar">
+    <div class="container">
+      <ul class="trust-bar__grid">
+        {trustItems.map(item => (
+          <li class="trust-bar__item">
+            <span class="trust-bar__icon" aria-hidden="true">✓</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════ DOMESTIC / COMMERCIAL SPLIT ═══════════ -->
+  <section aria-label="Domestic and commercial sealant services">
+    <div class="split-panel">
+      <div class="split-panel__side">
+        <div class="split-panel__bg" aria-hidden="true">
+          <img src={imgs.bathroom[1]} alt="" />
+        </div>
+        <div class="split-panel__overlay" aria-hidden="true"></div>
+        <div class="split-panel__content">
+          <span class="eyebrow eyebrow--white">For Homeowners</span>
+          <h2>Domestic Services</h2>
+          <p>Protect your home with expertly applied sealants that improve appearance, prevent water ingress and stand the test of time.</p>
+          <a href="/domestic" class="btn btn--white">Explore Domestic Services</a>
+        </div>
+      </div>
+      <div class="split-panel__side split-panel__side--navy">
+        <div class="split-panel__bg" aria-hidden="true">
+          <img src={imgs.external[0]} alt="" />
+        </div>
+        <div class="split-panel__overlay" aria-hidden="true"></div>
+        <div class="split-panel__content">
+          <span class="eyebrow eyebrow--white">For Contractors &amp; Developers</span>
+          <h2>Commercial Services</h2>
+          <p>Supporting contractors, developers and businesses with professional sealant application for projects of every size.</p>
+          <a href="/commercial" class="btn btn--white">Explore Commercial Services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ SERVICES OVERVIEW ═══════════ -->
+  <section class="section" aria-labelledby="services-heading">
+    <div class="container">
+      <div class="section__header">
+        <span class="eyebrow">What We Do</span>
+        <h2 id="services-heading">Sealant Services Across the North East</h2>
+        <p class="text-muted">Expert mastic, silicone and sealant application for domestic and commercial properties throughout the region.</p>
+      </div>
+      <div class="services-overview">
+        <div>
+          <p class="services-overview__label">Domestic</p>
+          <div class="services-grid">
+            {domesticServices.map(s => (
+              <a href={s.href} class="service-tile">
+                <span class="service-tile__category">{s.category}</span>
+                <span class="service-tile__name">{s.name}</span>
+                <span class="service-tile__link">Learn more →</span>
+              </a>
+            ))}
+          </div>
+        </div>
+        <div>
+          <p class="services-overview__label">Commercial</p>
+          <div class="services-grid">
+            {commercialServices.map(s => (
+              <a href={s.href} class="service-tile">
+                <span class="service-tile__category">{s.category}</span>
+                <span class="service-tile__name">{s.name}</span>
+                <span class="service-tile__link">Learn more →</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div class="btn-group" style="margin-top:2.5rem">
+        <a href="/services" class="btn btn--outline">View All Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ WHY SIMPLY BESPOKE ═══════════ -->
+  <section class="section section--white" aria-labelledby="why-heading">
+    <div class="container">
+      <div class="why-us__layout">
+        <div class="why-us__image">
+          <img src={imgs.internal[2]} alt="Simply Bespoke sealant specialist at work on an internal finishing project" loading="lazy" />
+        </div>
+        <div>
+          <span class="eyebrow">The Simply Bespoke Difference</span>
+          <h2 id="why-heading">Precision, Professionalism &amp; Quality Workmanship</h2>
+          <p class="text-muted">Simply Bespoke delivers consistently high standards across every project — whether a domestic bathroom reseal or a large-scale commercial development.</p>
+          <div class="why-us__points">
+            {whyPoints.map(p => (
+              <div class="why-us__point">
+                <span class="why-us__point-icon" aria-hidden="true">✓</span>
+                <div class="why-us__point-content">
+                  <h4>{p.title}</h4>
+                  <p>{p.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CLIENT LOGOS ═══════════ -->
+  <LogoStrip />
+
+  <!-- ═══════════ PROJECTS PREVIEW ═══════════ -->
+  <section class="section" aria-labelledby="projects-heading">
+    <div class="container">
+      <div class="section__header">
+        <span class="eyebrow">Completed Work</span>
+        <h2 id="projects-heading">Recent Projects</h2>
+        <p class="text-muted">A selection of recently completed mastic and sealant work across the North East.</p>
+      </div>
+      <div class="projects-grid">
+        {projectGallery.map(img => (
+          <div class="projects-grid__item">
+            <img src={img.src} alt={img.alt} loading="lazy" />
+          </div>
+        ))}
+      </div>
+      <div class="btn-group" style="margin-top:2.5rem">
+        <a href="/projects" class="btn btn--primary">View Our Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ REVIEWS ═══════════ -->
+  <ReviewCarousel />
+
+  <!-- ═══════════ AREAS WE COVER ═══════════ -->
+  <section class="section" aria-labelledby="areas-heading">
+    <div class="container">
+      <div class="areas-layout">
+        <div>
+          <span class="eyebrow">Coverage</span>
+          <h2 id="areas-heading">Sealant Specialists Across the North East</h2>
+          <p>Simply Bespoke provides professional mastic and sealant services across the North East of England — covering both domestic and commercial projects throughout the region.</p>
+          <div class="areas-tags" role="list" aria-label="Areas we serve">
+            {locations.map(loc => (
+              <a href={loc.href} class="area-tag" role="listitem">{loc.name}</a>
+            ))}
+          </div>
+          <a href="/areas-we-cover" class="btn btn--primary">View All Areas</a>
+        </div>
+        <div class="areas-image">
+          <img src={imgs.external[2]} alt="Sealant work completed in the North East of England" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FINAL CTA ═══════════ -->
+  <CTABanner />
 </Layout>
+
+<style>
+  .services-overview { display: flex; flex-direction: column; gap: 2.5rem; }
+  .services-overview__label {
+    font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--color-muted); margin-bottom: 1rem;
+    border-left: 3px solid var(--color-blue); padding-left: .75rem;
+  }
+</style>

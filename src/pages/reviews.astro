@@ -1,0 +1,216 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { reviews, overallRating, totalReviews } from '../data/reviews';
+
+function paras(text: string): string[] {
+  return text.split(/\n+/).filter(s => s.trim().length > 0);
+}
+---
+
+<Layout
+  title="Customer Reviews | Simply Bespoke Mastic & Sealant, North East England"
+  description={`${totalReviews} genuine Google reviews for Simply Bespoke Ltd — professional mastic and sealant specialists across the North East. Rated ${overallRating} out of 5.`}
+>
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <span class="eyebrow eyebrow--white">Customer Reviews</span>
+      <h1>What Our Customers Say</h1>
+      <p>Genuine Google reviews from homeowners and commercial clients across the North East.</p>
+    </div>
+  </section>
+
+  <!-- Rating summary -->
+  <section class="section section--white reviews-summary-section" aria-label="Overall rating">
+    <div class="container">
+      <div class="reviews-summary">
+        <div class="reviews-summary__badge" aria-label={`${overallRating} out of 5 — ${totalReviews} Google reviews`}>
+          <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          <div>
+            <div class="reviews-summary__score">
+              <span class="reviews-summary__num">{overallRating}</span>
+              <span class="reviews-summary__max">/ 5</span>
+            </div>
+            <div class="reviews-summary__stars" aria-hidden="true">★★★★★</div>
+          </div>
+          <div class="reviews-summary__divider" aria-hidden="true"></div>
+          <div>
+            <p class="reviews-summary__total">{totalReviews} reviews</p>
+            <p class="reviews-summary__source">Google Reviews</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- All reviews grid -->
+  <section class="section" aria-labelledby="all-reviews-heading">
+    <div class="container">
+      <div class="section__header">
+        <span class="eyebrow">All Reviews</span>
+        <h2 id="all-reviews-heading">{reviews.length} Customer Reviews</h2>
+      </div>
+      <div class="reviews-full-grid">
+        {reviews.map(r => (
+          <article class="review-full-card">
+            <div class="review-full-card__quote" aria-hidden="true">"</div>
+            <div class="review-full-card__body">
+              {paras(r.text).map(p => <p class="review-full-card__para">{p}</p>)}
+            </div>
+            <footer class="review-full-card__footer">
+              <p class="review-full-card__name">{r.name}</p>
+              <div class="review-full-card__source">
+                <svg width="11" height="11" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                </svg>
+                {r.source}
+              </div>
+            </footer>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>
+
+<style>
+  .reviews-summary-section { padding-block: 2.5rem; border-bottom: 1px solid var(--color-border); }
+
+  .reviews-summary { display: flex; justify-content: center; }
+
+  .reviews-summary__badge {
+    display: inline-flex; align-items: center; gap: 1.25rem;
+    padding: 1.25rem 2rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+  }
+
+  .reviews-summary__score {
+    display: flex; align-items: baseline; gap: .25rem;
+    font-family: var(--font-display);
+  }
+  .reviews-summary__num  { font-size: 2.5rem; font-weight: 700; color: var(--color-navy); line-height: 1; }
+  .reviews-summary__max  { font-size: 1rem; color: var(--color-muted); }
+  .reviews-summary__stars { color: #fbbc04; font-size: 1rem; letter-spacing: 2px; margin-top: .25rem; }
+
+  .reviews-summary__divider {
+    width: 1px; height: 3rem; background: var(--color-border); flex-shrink: 0;
+  }
+
+  .reviews-summary__total  { font-size: 1.25rem; font-weight: 700; color: var(--color-navy); margin: 0; }
+  .reviews-summary__source { font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--color-muted); margin: .2rem 0 0; }
+
+  /* Full reviews grid */
+  .reviews-full-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .review-full-card {
+    display: flex; flex-direction: column;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    padding: 1.75rem;
+    gap: .875rem;
+    transition: box-shadow var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
+  }
+  .review-full-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+  .review-full-card__quote {
+    font-family: var(--font-display); font-size: 3rem;
+    line-height: .7; color: var(--color-blue); opacity: .2;
+    user-select: none; pointer-events: none;
+  }
+
+  .review-full-card__body { flex: 1; }
+  .review-full-card__para {
+    font-size: .875rem; line-height: 1.7;
+    color: var(--color-text); max-width: none;
+    margin-bottom: .5rem;
+  }
+  .review-full-card__para:last-child { margin-bottom: 0; }
+
+  .review-full-card__footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border-light);
+    display: flex; align-items: center; justify-content: space-between; gap: .5rem;
+  }
+  .review-full-card__name {
+    font-size: .875rem; font-weight: 600;
+    color: var(--color-navy); max-width: none; margin: 0;
+  }
+  .review-full-card__source {
+    display: flex; align-items: center; gap: .3rem;
+    font-size: .68rem; font-weight: 600;
+    letter-spacing: .06em; text-transform: uppercase;
+    color: var(--color-muted); flex-shrink: 0;
+  }
+
+  @media (max-width: 1023px) { .reviews-full-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 599px)  { .reviews-full-grid { grid-template-columns: 1fr; } }
+</style>
+
+<Layout
+  title="Customer Reviews | Simply Bespoke, North East England"
+  description="Read customer reviews for Simply Bespoke mastic and sealant services across the North East of England. Domestic and commercial sealant work."
+>
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <span class="eyebrow eyebrow--white">Customer Reviews</span>
+      <h1>What Our Clients Say</h1>
+      <p>Reviews from homeowners and commercial clients across the North East of England.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="reviews-h2">
+    <div class="container">
+      <div class="section__header">
+        <span class="eyebrow">Reviews</span>
+        <h2 id="reviews-h2">Customer Reviews</h2>
+        <p class="text-muted">Simply Bespoke takes pride in delivering consistent, high-quality sealant work. Customer reviews will be displayed here.</p>
+      </div>
+
+      <div class="review-placeholder">
+        <p>Customer reviews to be added</p>
+        <p style="font-size:.875rem;margin-top:.5rem">Real customer reviews will be displayed here once collected.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="why-heading">
+    <div class="container container--narrow">
+      <span class="eyebrow">Why Choose Simply Bespoke</span>
+      <h2 id="why-heading">Consistently High Standards on Every Job</h2>
+      <div class="prose">
+        <p>Simply Bespoke delivers professional mastic and sealant work to a consistently high standard — whether it's a domestic bathroom reseal or a commercial new build sealant package. Our approach is simple: use quality products, apply them correctly and leave the client's property clean and tidy.</p>
+        <ul>
+          <li>Domestic &amp; commercial specialists</li>
+          <li>High-quality workmanship on every project</li>
+          <li>Fully insured</li>
+          <li>Free no-obligation quotes</li>
+          <li>Reliable and professional service</li>
+          <li>Serving Newcastle, Sunderland, Durham and the wider North East</li>
+        </ul>
+      </div>
+      <div class="btn-group mt-2">
+        <a href="/contact" class="btn btn--primary">Request a Free Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>

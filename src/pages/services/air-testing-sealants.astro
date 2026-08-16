@@ -1,0 +1,82 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import * as imgs from '../../data/images';
+---
+
+<Layout
+  title="Air Testing Sealants | Simply Bespoke, North East England"
+  description="Professional air testing sealant application to improve building airtightness across the North East. Targeted mastic and sealant work ahead of pressure testing."
+>
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <span class="eyebrow eyebrow--white">Commercial Service</span>
+      <h1>Air Testing Sealants</h1>
+      <p>Targeted mastic and sealant application to improve building envelope airtightness ahead of pressure testing across the North East.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="air-layout">
+        <div>
+          <span class="eyebrow">Airtightness Sealant Specialist</span>
+          <h2>Sealant Application for Airtightness Testing</h2>
+          <div class="prose">
+            <p>Air permeability testing (pressure testing) is a requirement for many new build dwellings and commercial buildings under current building regulations. Achieving a satisfactory air test result requires careful sealing of all unintentional gaps in the building envelope.</p>
+            <p>Simply Bespoke provides professional sealant application specifically targeted at improving airtightness ahead of pressure tests on new build developments across the North East. We have experience working on residential and commercial projects, working with site teams to address the most common air leakage paths.</p>
+            <h3>Air Testing Sealant Services</h3>
+            <ul>
+              <li>Pre-test sealant application to improve airtightness</li>
+              <li>Service penetration sealing through walls and floors</li>
+              <li>Window and door frame perimeter sealing</li>
+              <li>Loft hatch and access panel perimeter sealing</li>
+              <li>Junction sealing at walls, floors and ceilings</li>
+              <li>Post-test remedial sealant application</li>
+            </ul>
+            <h3>Working With Your Air Test Team</h3>
+            <p>We are experienced in working alongside air testing professionals to address identified leakage paths quickly and effectively. If your building has failed a pressure test or you want to improve your result ahead of testing, Simply Bespoke can assist.</p>
+          </div>
+          <div class="btn-group">
+            <a href="/contact" class="btn btn--primary">Discuss Your Requirements</a>
+            <a href="/commercial" class="btn btn--outline">All Commercial Services</a>
+          </div>
+        </div>
+        <div class="air-aside">
+          <img src={imgs.internal[7]} alt="Internal sealant application on a commercial new build" loading="lazy" />
+          <div class="air-note">
+            <h4>New Build Projects</h4>
+            <p>We work with housebuilders, developers and main contractors on new build projects across the North East, providing sealant packages that support air test compliance.</p>
+            <a href="/services/new-build-sealants" class="service-tile__link">New build sealant packages →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Air Testing Sealant — North East England"
+    description="Targeted sealant application to help meet airtightness requirements. Get in touch to discuss your new build project."
+    buttonText="Get in Touch"
+  />
+</Layout>
+
+<style>
+  .air-layout {
+    display: grid; grid-template-columns: 1fr 380px;
+    gap: clamp(3rem,5vw,5rem); align-items: start;
+  }
+  .air-aside { display: flex; flex-direction: column; gap: 1.5rem; position: sticky; top: 6rem; }
+  .air-aside > img { aspect-ratio: 4/3; object-fit: cover; width: 100%; }
+  .air-note {
+    padding: 1.75rem; background: #fff;
+    border: 1px solid var(--color-border); border-left: 3px solid var(--color-blue);
+  }
+  .air-note h4 { margin-bottom: .5rem; }
+  .air-note p  { font-size: .9rem; color: var(--color-muted); max-width: none; margin-bottom: .75rem; }
+
+  @media (max-width: 1023px) {
+    .air-layout { grid-template-columns: 1fr; }
+    .air-aside { position: static; }
+  }
+</style>

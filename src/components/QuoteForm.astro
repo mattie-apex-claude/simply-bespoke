@@ -1,0 +1,586 @@
+---
+// QuoteForm.astro — Reusable quote/contact form for Simply Bespoke Ltd
+// ─────────────────────────────────────────────────────────────────────────────
+// INTEGRATION: Open this file, find WEBHOOK_URL below in the <script> block
+// and replace 'YOUR_WEBHOOK_URL_HERE' with your CRM or webhook endpoint.
+// ─────────────────────────────────────────────────────────────────────────────
+---
+
+<div class="qf-wrapper" id="quote-form-wrapper">
+
+  <form class="qf" id="quote-form" novalidate>
+
+    <!-- Row 1: Name + Phone -->
+    <div class="qf__row">
+      <div class="qf__field">
+        <label for="qf-name" class="qf__label">
+          Full Name <span class="qf__req" aria-label="required">*</span>
+        </label>
+        <input
+          type="text" id="qf-name" name="full_name"
+          class="qf__input" required
+          autocomplete="name" placeholder="Your full name"
+        />
+        <span class="qf__error" id="qf-name-err" role="alert" aria-live="polite"></span>
+      </div>
+      <div class="qf__field">
+        <label for="qf-phone" class="qf__label">
+          Phone Number <span class="qf__req" aria-label="required">*</span>
+        </label>
+        <input
+          type="tel" id="qf-phone" name="phone"
+          class="qf__input" required
+          autocomplete="tel" placeholder="e.g. 07553 579237"
+        />
+        <span class="qf__error" id="qf-phone-err" role="alert" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <!-- Row 2: Email + Postcode -->
+    <div class="qf__row">
+      <div class="qf__field">
+        <label for="qf-email" class="qf__label">
+          Email Address <span class="qf__req" aria-label="required">*</span>
+        </label>
+        <input
+          type="email" id="qf-email" name="email"
+          class="qf__input" required
+          autocomplete="email" placeholder="your@email.com"
+        />
+        <span class="qf__error" id="qf-email-err" role="alert" aria-live="polite"></span>
+      </div>
+      <div class="qf__field">
+        <label for="qf-postcode" class="qf__label">
+          Postcode <span class="qf__req" aria-label="required">*</span>
+        </label>
+        <input
+          type="text" id="qf-postcode" name="postcode"
+          class="qf__input" required
+          autocomplete="postal-code" placeholder="e.g. NE1 4AS"
+        />
+        <span class="qf__error" id="qf-postcode-err" role="alert" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <!-- Row 3: Enquiry Type + Service -->
+    <div class="qf__row">
+      <div class="qf__field">
+        <label for="qf-type" class="qf__label">
+          Enquiry Type <span class="qf__req" aria-label="required">*</span>
+        </label>
+        <div class="qf__select-wrap">
+          <select id="qf-type" name="enquiry_type" class="qf__select" required>
+            <option value="">Select...</option>
+            <option value="Domestic">Domestic</option>
+            <option value="Commercial">Commercial</option>
+          </select>
+        </div>
+        <span class="qf__error" id="qf-type-err" role="alert" aria-live="polite"></span>
+      </div>
+      <div class="qf__field">
+        <label for="qf-service" class="qf__label">
+          Service Required <span class="qf__req" aria-label="required">*</span>
+        </label>
+        <div class="qf__select-wrap">
+          <select id="qf-service" name="service_required" class="qf__select" required>
+            <option value="">Select a service...</option>
+            <option value="Bathroom Sealant">Bathroom Sealant</option>
+            <option value="Kitchen Sealant">Kitchen Sealant</option>
+            <option value="Window & Door Sealing">Window &amp; Door Sealing</option>
+            <option value="Floors & Skirting">Floors &amp; Skirting</option>
+            <option value="Brickwork & Expansion Joint Sealing">Brickwork &amp; Expansion Joint Sealing</option>
+            <option value="New Build Sealants">New Build Sealants</option>
+            <option value="Expansion & Movement Joints">Expansion &amp; Movement Joints</option>
+            <option value="Fire-Rated Sealants">Fire-Rated Sealants</option>
+            <option value="Industrial & Commercial Sealants">Industrial &amp; Commercial Sealants</option>
+            <option value="Air Testing Sealants">Air Testing Sealants</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <span class="qf__error" id="qf-service-err" role="alert" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="qf__field">
+      <label for="qf-desc" class="qf__label">Brief Description of Work</label>
+      <textarea
+        id="qf-desc" name="description"
+        class="qf__textarea" rows="4"
+        placeholder="Property type, location and anything specific we should know..."
+      ></textarea>
+    </div>
+
+    <!-- Consent -->
+    <div class="qf__field qf__field--consent">
+      <label class="qf__consent-label" for="qf-consent">
+        <input type="checkbox" id="qf-consent" name="consent" class="qf__checkbox" required />
+        <span class="qf__consent-box" aria-hidden="true"></span>
+        <span class="qf__consent-text">
+          I consent to Simply Bespoke contacting me regarding my enquiry.&nbsp;<span class="qf__req" aria-label="required">*</span>
+        </span>
+      </label>
+      <span class="qf__error" id="qf-consent-err" role="alert" aria-live="polite"></span>
+    </div>
+
+    <!-- Submit -->
+    <div class="qf__submit-row">
+      <button type="submit" class="btn btn--primary qf__submit" id="qf-submit">
+        <span class="qf__label-text">Request a Free Quote</span>
+        <span class="qf__loading" hidden aria-hidden="true">
+          <svg class="qf__spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path stroke-dasharray="50" stroke-dashoffset="16" d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
+          </svg>
+          Sending...
+        </span>
+      </button>
+      <p class="qf__req-note" aria-hidden="true"><span class="qf__req">*</span> Required fields</p>
+    </div>
+
+  </form>
+
+  <!-- ── Success state ─────────────────────────────────────────────────── -->
+  <div class="qf__success" id="qf-success" hidden role="status" aria-live="polite">
+    <div class="qf__success-icon" aria-hidden="true">✓</div>
+    <h3>Enquiry Received</h3>
+    <p>Thank you — we'll be in touch shortly to discuss your quote.</p>
+    <p>
+      For urgent enquiries call us on
+      <a href="tel:07553579237">07553 579237</a>
+      or <a href="https://wa.me/447553579237" target="_blank" rel="noopener noreferrer">message us on WhatsApp</a>.
+    </p>
+  </div>
+
+  <!-- ── Submission error state ────────────────────────────────────────── -->
+  <div class="qf__form-error" id="qf-form-error" hidden role="alert" aria-live="assertive">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <p id="qf-form-error-msg">Something went wrong. Please try again.</p>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  // ─────────────────────────────────────────────────────────────────────────────
+  // INTEGRATION — Replace the value below with your GoHighLevel Inbound Webhook URL.
+  // GoHighLevel: Automations → Triggers → Inbound Webhook → copy the webhook URL
+  // The form POSTs application/json (see payload structure below).
+  // ─────────────────────────────────────────────────────────────────────────────
+  const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/9VUYrlveniaOKssf1kQ9/webhook-trigger/0388d4c0-aa83-4abd-bdec-025d00b710ef';
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  const form       = document.getElementById('quote-form') as HTMLFormElement | null;
+  const submitBtn  = document.getElementById('qf-submit') as HTMLButtonElement | null;
+  const successEl  = document.getElementById('qf-success') as HTMLElement | null;
+  const formErrEl  = document.getElementById('qf-form-error') as HTMLElement | null;
+  const formErrMsg = document.getElementById('qf-form-error-msg') as HTMLElement | null;
+
+  if (!form || !submitBtn) return;
+
+  // ── Validators ────────────────────────────────────────────────────────────
+  const EMAIL_RE     = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const PHONE_RE     = /^[\d\s+\-().]{10,15}$/;
+  const POSTCODE_RE  = /^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i;
+
+  function el<T extends HTMLElement>(id: string) {
+    return document.getElementById(id) as T | null;
+  }
+
+  function fieldErr(fieldId: string, msg: string) {
+    const input = el<HTMLInputElement>(fieldId);
+    const span  = el(fieldId + '-err');
+    input?.classList.add('has-error');
+    input?.setAttribute('aria-invalid', 'true');
+    if (span) span.textContent = msg;
+  }
+
+  function clearErr(fieldId: string) {
+    const input = el<HTMLInputElement>(fieldId);
+    const span  = el(fieldId + '-err');
+    input?.classList.remove('has-error');
+    input?.removeAttribute('aria-invalid');
+    if (span) span.textContent = '';
+  }
+
+  function validateField(id: string): boolean {
+    const val = (el<HTMLInputElement>(id)?.value ?? '').trim();
+    clearErr(id);
+    switch (id) {
+      case 'qf-name':
+        if (!val)          return fieldErr(id, 'Please enter your full name.'),   false;
+        if (val.length < 2)return fieldErr(id, 'Name must be at least 2 characters.'), false;
+        break;
+      case 'qf-phone':
+        if (!val)               return fieldErr(id, 'Please enter your phone number.'), false;
+        if (!PHONE_RE.test(val))return fieldErr(id, 'Please enter a valid phone number.'), false;
+        break;
+      case 'qf-email':
+        if (!val)                return fieldErr(id, 'Please enter your email address.'), false;
+        if (!EMAIL_RE.test(val)) return fieldErr(id, 'Please enter a valid email address.'), false;
+        break;
+      case 'qf-postcode':
+        if (!val)                   return fieldErr(id, 'Please enter your postcode.'), false;
+        if (!POSTCODE_RE.test(val)) return fieldErr(id, 'Please enter a valid UK postcode (e.g. NE1 4AS).'), false;
+        break;
+      case 'qf-type':
+        if (!val) return fieldErr(id, 'Please select an enquiry type.'), false;
+        break;
+      case 'qf-service':
+        if (!val) return fieldErr(id, 'Please select the service required.'), false;
+        break;
+    }
+    return true;
+  }
+
+  function validateConsent(): boolean {
+    const cb  = el<HTMLInputElement>('qf-consent');
+    const err = el('qf-consent-err');
+    if (!cb?.checked) {
+      cb?.classList.add('has-error');
+      if (err) err.textContent = 'Your consent is required to process this enquiry.';
+      return false;
+    }
+    cb.classList.remove('has-error');
+    if (err) err.textContent = '';
+    return true;
+  }
+
+  function validateAll(): boolean {
+    const fields = ['qf-name', 'qf-phone', 'qf-email', 'qf-postcode', 'qf-type', 'qf-service'];
+    let ok = true;
+    fields.forEach(id => { if (!validateField(id)) ok = false; });
+    if (!validateConsent()) ok = false;
+    if (!ok) {
+      const first = form.querySelector<HTMLElement>('.has-error, [aria-invalid]');
+      first?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    return ok;
+  }
+
+  // ── Live validation ────────────────────────────────────────────────────────
+  form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(
+    'input:not([type=checkbox]), select, textarea'
+  ).forEach(input => {
+    input.addEventListener('blur',  () => validateField(input.id));
+    input.addEventListener('input', () => {
+      if (input.classList.contains('has-error')) validateField(input.id);
+    });
+  });
+
+  // ── Submit state helpers ───────────────────────────────────────────────────
+  function setBusy(busy: boolean) {
+    const label   = submitBtn.querySelector<HTMLElement>('.qf__label-text');
+    const loading = submitBtn.querySelector<HTMLElement>('.qf__loading');
+    submitBtn.disabled = busy;
+    submitBtn.setAttribute('aria-busy', String(busy));
+    if (label)   label.hidden   = busy;
+    if (loading) loading.hidden = !busy;
+  }
+
+  function showSuccess() {
+    form.hidden = true;
+    if (successEl) { successEl.hidden = false; successEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+  }
+
+  function showFormError(msg: string) {
+    if (formErrMsg) formErrMsg.textContent = msg;
+    if (formErrEl) { formErrEl.hidden = false; formErrEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+  }
+
+  // ── Submit ─────────────────────────────────────────────────────────────────
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (formErrEl) formErrEl.hidden = true;
+
+    if (!validateAll()) return;
+
+    // ── Webhook not yet configured ──────────────────────────────────────────
+    if (WEBHOOK_URL === 'PASTE_GHL_WEBHOOK_URL_HERE') {
+      console.warn(
+        '\n[QuoteForm] ⚠️  No GoHighLevel webhook URL configured.\n' +
+        'Open src/components/QuoteForm.astro and replace\n' +
+        '"PASTE_GHL_WEBHOOK_URL_HERE" with your GoHighLevel Inbound Webhook URL.\n'
+      );
+      showFormError(
+        'Online submission is not yet active. Please call us on 07553 579237 ' +
+        'or email info@simplybespoke.co.uk — we will get back to you promptly.'
+      );
+      return;
+    }
+
+    setBusy(true);
+
+    try {
+      // ── Build JSON payload for GoHighLevel ────────────────────────────────
+      // Photos cannot be transmitted via JSON webhook — the upload UI is
+      // preserved for a future file-storage integration (see notes below).
+      const fd = new FormData(form);
+      const payload = {
+        fullName:        ((fd.get('full_name')        as string) ?? '').trim(),
+        phone:           ((fd.get('phone')            as string) ?? '').trim(),
+        email:           ((fd.get('email')            as string) ?? '').trim(),
+        postcode:        ((fd.get('postcode')         as string) ?? '').trim(),
+        enquiryType:     ((fd.get('enquiry_type')     as string) ?? '').trim(),
+        serviceRequired: ((fd.get('service_required') as string) ?? '').trim(),
+        description:     ((fd.get('description')     as string) ?? '').trim(),
+        source:          'Simply Bespoke Website',
+      };
+
+      const res = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        showSuccess();
+      } else {
+        console.error('[QuoteForm] Webhook responded with status', res.status);
+        showFormError(
+          `Submission failed (error ${res.status}). Please call 07553 579237 or ` +
+          'email info@simplybespoke.co.uk.'
+        );
+      }
+    } catch {
+      showFormError(
+        'Unable to send your enquiry. Please call us on 07553 579237 or ' +
+        'email info@simplybespoke.co.uk.'
+      );
+    } finally {
+      setBusy(false);
+    }
+  });
+})();
+</script>
+
+<style>
+  /* ── Wrapper ── */
+  .qf-wrapper { width: 100%; }
+
+  /* ── Form ── */
+  .qf { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .qf__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  /* ── Field ── */
+  .qf__field { display: flex; flex-direction: column; }
+  .qf__field--consent { gap: .375rem; }
+
+  .qf__label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--color-navy);
+    margin-bottom: .5rem;
+  }
+  .qf__req  { color: var(--color-blue); }
+  .qf__hint {
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--color-muted);
+    margin-left: .25rem;
+  }
+
+  /* ── Inputs ── */
+  .qf__input,
+  .qf__select,
+  .qf__textarea {
+    display: block;
+    width: 100%;
+    padding: .75rem 1rem;
+    font-family: var(--font-body);
+    font-size: .9rem;
+    color: var(--color-text);
+    background: var(--color-white);
+    border: 1.5px solid var(--color-border);
+    border-radius: 2px;
+    line-height: 1.5;
+    transition: border-color .18s ease, box-shadow .18s ease;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .qf__input::placeholder,
+  .qf__textarea::placeholder { color: var(--color-muted); font-size: .875rem; }
+  .qf__input:hover, .qf__select:hover, .qf__textarea:hover {
+    border-color: rgba(30,81,163,.45);
+  }
+  .qf__input:focus, .qf__select:focus, .qf__textarea:focus {
+    outline: none;
+    border-color: var(--color-blue);
+    box-shadow: 0 0 0 3px rgba(30,81,163,.12);
+  }
+  .qf__input.has-error, .qf__select.has-error, .qf__textarea.has-error {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220,38,38,.08);
+  }
+  .qf__textarea { resize: vertical; min-height: 110px; }
+
+  /* Custom select arrow */
+  .qf__select-wrap { position: relative; }
+  .qf__select-wrap::after {
+    content: '';
+    position: absolute;
+    right: 1rem; top: 50%;
+    transform: translateY(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--color-navy);
+    pointer-events: none;
+  }
+  .qf__select { padding-right: 2.5rem; cursor: pointer; }
+
+  /* ── File upload ── */
+  .qf__file-input {
+    position: absolute; width: 1px; height: 1px;
+    overflow: hidden; clip: rect(0,0,0,0); border: 0;
+  }
+  .qf__file-area {
+    display: flex; flex-direction: column; align-items: center;
+    gap: .4rem; padding: 2rem 1.5rem;
+    border: 1.5px dashed var(--color-border);
+    border-radius: 2px;
+    background: var(--color-bg);
+    cursor: pointer; text-align: center;
+    color: var(--color-muted);
+    transition: border-color .18s ease, background .18s ease, color .18s ease;
+  }
+  .qf__file-area:hover,
+  .qf__file-area.is-over {
+    border-color: var(--color-blue);
+    background: rgba(30,81,163,.03);
+    color: var(--color-blue);
+  }
+  .qf__file-text { font-size: .9rem; font-weight: 500; color: var(--color-navy); margin: 0; }
+  .qf__file-sub  { font-size: .78rem; color: var(--color-muted); margin: 0; }
+  .qf__file-list {
+    display: flex; flex-wrap: wrap; gap: .35rem; justify-content: center;
+    margin-top: .375rem; width: 100%;
+  }
+  .qf__file-chip {
+    font-size: .72rem; font-weight: 500;
+    padding: .2rem .65rem;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    color: var(--color-text);
+  }
+  .qf__file-chip em { color: var(--color-muted); font-style: normal; }
+
+  /* ── Consent checkbox ── */
+  .qf__consent-label {
+    display: flex; align-items: flex-start; gap: .75rem; cursor: pointer;
+  }
+  .qf__checkbox {
+    position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none;
+  }
+  .qf__consent-box {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border: 1.5px solid var(--color-border);
+    border-radius: 2px;
+    margin-top: .15rem;
+    background: var(--color-white);
+    position: relative;
+    transition: border-color .18s ease, background .18s ease;
+  }
+  .qf__consent-box::after {
+    content: '';
+    position: absolute; inset: 3px;
+    background: var(--color-blue);
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    opacity: 0;
+    transition: opacity .15s ease;
+  }
+  .qf__checkbox:checked ~ .qf__consent-box { border-color: var(--color-blue); }
+  .qf__checkbox:checked ~ .qf__consent-box::after { opacity: 1; }
+  .qf__checkbox:focus ~ .qf__consent-box {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(30,81,163,.2);
+    border-color: var(--color-blue);
+  }
+  .qf__checkbox.has-error ~ .qf__consent-box { border-color: #dc2626; }
+  .qf__consent-text { font-size: .9rem; line-height: 1.55; color: var(--color-text); }
+
+  /* ── Field error text ── */
+  .qf__error {
+    font-size: .75rem;
+    color: #dc2626;
+    margin-top: .35rem;
+    min-height: 1em;
+  }
+
+  /* ── Submit row ── */
+  .qf__submit-row {
+    display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+    margin-top: .5rem;
+  }
+  .qf__submit {
+    min-width: 200px; justify-content: center;
+    transition:
+      background var(--dur-fast) var(--ease-std),
+      border-color var(--dur-fast) var(--ease-std),
+      transform var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-med) var(--ease-out);
+  }
+  .qf__submit:disabled {
+    opacity: .65; cursor: not-allowed;
+    transform: none !important; box-shadow: none !important;
+  }
+  .qf__req-note { font-size: .75rem; color: var(--color-muted); margin: 0; }
+
+  .qf__spinner {
+    animation: qf-spin .7s linear infinite;
+    display: inline-block; vertical-align: middle;
+  }
+  @keyframes qf-spin { to { transform: rotate(360deg); } }
+
+  /* ── Prevent display:flex/block overriding the HTML hidden attribute ── */
+  .qf__success[hidden],
+  .qf__form-error[hidden] { display: none !important; }
+
+  /* ── Success ── */
+  .qf__success {
+    padding: 3rem 2rem; text-align: center;
+    border: 1.5px solid var(--color-border);
+    background: var(--color-white);
+    border-radius: 2px;
+  }
+  .qf__success-icon {
+    width: 52px; height: 52px;
+    background: var(--color-blue); color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; font-weight: 700;
+    margin: 0 auto 1.25rem;
+  }
+  .qf__success h3 { font-size: 1.4rem; margin-bottom: .5rem; }
+  .qf__success p  { color: var(--color-muted); max-width: 44ch; margin: .4rem auto; }
+  .qf__success a  { color: var(--color-blue); font-weight: 500; }
+  .qf__success a:hover { text-decoration: underline; }
+
+  /* ── Form-level error ── */
+  .qf__form-error {
+    display: flex; align-items: flex-start; gap: .75rem;
+    padding: 1rem 1.25rem;
+    background: #fef2f2; border: 1.5px solid #fca5a5;
+    border-radius: 2px; color: #991b1b;
+  }
+  .qf__form-error svg { flex-shrink: 0; margin-top: .1rem; }
+  .qf__form-error p { font-size: .875rem; max-width: none; margin: 0; color: inherit; }
+
+  /* ── Responsive ── */
+  @media (max-width: 599px) {
+    .qf__row { grid-template-columns: 1fr; }
+    .qf__submit-row { flex-direction: column; align-items: stretch; }
+    .qf__submit { width: 100%; min-width: 0; }
+  }
+</style>

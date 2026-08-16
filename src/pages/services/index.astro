@@ -1,0 +1,86 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTABanner from '../../components/CTABanner.astro';
+
+const domesticServices = [
+  { href: '/services/bathroom-sealant',          title: 'Bathroom Sealant',             category: 'Domestic' },
+  { href: '/services/kitchen-sealant',           title: 'Kitchen Sealant',              category: 'Domestic' },
+  { href: '/services/window-door-sealing',       title: 'Window & Door Sealing',        category: 'Domestic' },
+  { href: '/services/floors-skirting',           title: 'Floors & Skirting',            category: 'Domestic' },
+  { href: '/services/brickwork-expansion-joints',title: 'Brickwork & Expansion Joints', category: 'Domestic' },
+  { href: '/services/internal-sealant',            title: 'Internal Sealant',              category: 'Domestic' },
+  { href: '/services/external-sealant',            title: 'External Sealant',              category: 'Domestic' },
+];
+const commercialServices = [
+  { href: '/services/new-build-sealants',            title: 'New Build Sealants',             category: 'Commercial' },
+  { href: '/services/expansion-movement-joints',     title: 'Expansion & Movement Joints',    category: 'Commercial' },
+  { href: '/services/fire-rated-sealants',           title: 'Fire-Rated Sealants',            category: 'Commercial' },
+  { href: '/services/industrial-commercial-sealants',title: 'Industrial & Commercial Sealants',category: 'Commercial' },
+  { href: '/services/air-testing-sealants',          title: 'Air Testing Sealants',           category: 'Commercial' },
+];
+---
+
+<Layout
+  title="Mastic & Sealant Services | Simply Bespoke, North East England"
+  description="Browse all domestic and commercial mastic, silicone and sealant services from Simply Bespoke. Covering bathrooms, kitchens, windows, commercial builds, expansion joints, fire-rated sealants and more."
+>
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <span class="eyebrow eyebrow--white">Services</span>
+      <h1>Mastic &amp; Sealant Services</h1>
+      <p>Professional domestic and commercial sealant application across the North East of England. From bathroom silicone to large-scale commercial contracts.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="domestic-heading">
+    <div class="container">
+      <div class="section__header">
+        <span class="eyebrow">For Homeowners</span>
+        <h2 id="domestic-heading">Domestic Sealant Services</h2>
+        <p class="text-muted">Expert mastic and silicone application for residential properties — bathrooms, kitchens, windows, doors and beyond.</p>
+      </div>
+      <div class="services-grid services-grid--large">
+        {domesticServices.map(s => (
+          <a href={s.href} class="service-tile service-tile--large">
+            <span class="service-tile__category">{s.category}</span>
+            <span class="service-tile__name">{s.title}</span>
+            <span class="service-tile__link">View service →</span>
+          </a>
+        ))}
+      </div>
+      <div class="btn-group" style="margin-top:2rem">
+        <a href="/domestic" class="btn btn--outline">About Domestic Services</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="commercial-heading">
+    <div class="container">
+      <div class="section__header">
+        <span class="eyebrow">For Contractors &amp; Developers</span>
+        <h2 id="commercial-heading">Commercial Sealant Services</h2>
+        <p class="text-muted">Professional sealant contracting for new builds, commercial developments, industrial projects and specialist applications.</p>
+      </div>
+      <div class="services-grid services-grid--large">
+        {commercialServices.map(s => (
+          <a href={s.href} class="service-tile service-tile--large">
+            <span class="service-tile__category">{s.category}</span>
+            <span class="service-tile__name">{s.title}</span>
+            <span class="service-tile__link">View service →</span>
+          </a>
+        ))}
+      </div>
+      <div class="btn-group" style="margin-top:2rem">
+        <a href="/commercial" class="btn btn--outline">About Commercial Services</a>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>
+
+<style>
+  .services-grid--large { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+  .service-tile--large { padding: 2rem; }
+  .service-tile--large .service-tile__name { font-size: 1.1rem; }
+</style>
