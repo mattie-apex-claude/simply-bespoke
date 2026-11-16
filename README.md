@@ -44,3 +44,16 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## Enquiry form
+
+`src/components/QuoteForm.astro` posts the form to this site's `/api/website-enquiry` route (`functions/api/website-enquiry.ts`, a Cloudflare Pages Function). That route adds the private connection secret and sends the enquiry to ApexFlow CRM, where it lands in Simply Bespoke's pipeline as a New enquiry. Domestic or Commercial is added to the top of the message. Each enquiry carries a `submission_id`, so retries never create duplicates.
+
+Cloudflare Pages settings (Settings, Variables and Secrets, Production), both shown once by Apex Admin's Connect website button on the Simply Bespoke card:
+
+| Name | Value |
+| --- | --- |
+| `APEX_WEBSITE_ID` | The website connection ID |
+| `APEX_WEBSITE_SECRET` | The 64 character connection secret (type: Secret) |
+
+The old GoHighLevel webhook is no longer used by the form.

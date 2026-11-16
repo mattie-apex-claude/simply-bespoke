@@ -1,8 +1,8 @@
 ---
 // QuoteForm.astro — Reusable quote/contact form for Simply Bespoke Ltd
 // ─────────────────────────────────────────────────────────────────────────────
-// INTEGRATION: Open this file, find WEBHOOK_URL below in the <script> block
-// and replace 'YOUR_WEBHOOK_URL_HERE' with your CRM or webhook endpoint.
+// Sends enquiries to ApexFlow CRM through this site's own /api/website-enquiry route
+// (functions/api/website-enquiry.ts), which adds the private connection secret server side.
 // ─────────────────────────────────────────────────────────────────────────────
 ---
 
@@ -17,7 +17,7 @@
           Full Name <span class="qf__req" aria-label="required">*</span>
         </label>
         <input
-          type="text" id="qf-name" name="full_name"
+          type="text" id="qf-name" name="name"
           class="qf__input" required
           autocomplete="name" placeholder="Your full name"
         />
@@ -82,7 +82,7 @@
           Service Required <span class="qf__req" aria-label="required">*</span>
         </label>
         <div class="qf__select-wrap">
-          <select id="qf-service" name="service_required" class="qf__select" required>
+          <select id="qf-service" name="service" class="qf__select" required>
             <option value="">Select a service...</option>
             <option value="Bathroom Sealant">Bathroom Sealant</option>
             <option value="Kitchen Sealant">Kitchen Sealant</option>
@@ -105,10 +105,19 @@
     <div class="qf__field">
       <label for="qf-desc" class="qf__label">Brief Description of Work</label>
       <textarea
-        id="qf-desc" name="description"
+        id="qf-desc" name="message"
         class="qf__textarea" rows="4"
         placeholder="Property type, location and anything specific we should know..."
       ></textarea>
+    </div>
+
+    <!-- Sent with every enquiry: an ID so retries are never duplicated, and the page it came from -->
+    <input type="hidden" name="submission_id" value="" />
+    <input type="hidden" name="page_source" value="" />
+
+    <!-- Honeypot: real visitors never see or fill this -->
+    <div class="qf__trap" aria-hidden="true">
+      <label>Leave this field empty<input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label>
     </div>
 
     <!-- Consent -->
@@ -163,12 +172,9 @@
 
 <script>
 (function () {
-  // ─────────────────────────────────────────────────────────────────────────────
-  // INTEGRATION — Replace the value below with your GoHighLevel Inbound Webhook URL.
-  // GoHighLevel: Automations → Triggers → Inbound Webhook → copy the webhook URL
-  // The form POSTs application/json (see payload structure below).
-  // ─────────────────────────────────────────────────────────────────────────────
-  const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/9VUYrlveniaOKssf1kQ9/webhook-trigger/0388d4c0-aa83-4abd-bdec-025d00b710ef';
+  // This site's own server route, which passes the enquiry to ApexFlow CRM.
+  const ENDPOINT = '/api/website-enquiry';
+  const PENDING_KEY = 'sb-enquiry-pending';
   // ─────────────────────────────────────────────────────────────────────────────
 
   const form       = document.getElementById('quote-form') as HTMLFormElement | null;
@@ -296,48 +302,41 @@
 
     if (!validateAll()) return;
 
-    // ── Webhook not yet configured ──────────────────────────────────────────
-    if (WEBHOOK_URL === 'PASTE_GHL_WEBHOOK_URL_HERE') {
-      console.warn(
-        '\n[QuoteForm] ⚠️  No GoHighLevel webhook URL configured.\n' +
-        'Open src/components/QuoteForm.astro and replace\n' +
-        '"PASTE_GHL_WEBHOOK_URL_HERE" with your GoHighLevel Inbound Webhook URL.\n'
-      );
-      showFormError(
-        'Online submission is not yet active. Please call us on 07553 579237 ' +
-        'or email info@simplybespoke.co.uk — we will get back to you promptly.'
-      );
-      return;
-    }
-
     setBusy(true);
 
     try {
-      // ── Build JSON payload for GoHighLevel ────────────────────────────────
-      // Photos cannot be transmitted via JSON webhook — the upload UI is
-      // preserved for a future file-storage integration (see notes below).
       const fd = new FormData(form);
-      const payload = {
-        fullName:        ((fd.get('full_name')        as string) ?? '').trim(),
-        phone:           ((fd.get('phone')            as string) ?? '').trim(),
-        email:           ((fd.get('email')            as string) ?? '').trim(),
-        postcode:        ((fd.get('postcode')         as string) ?? '').trim(),
-        enquiryType:     ((fd.get('enquiry_type')     as string) ?? '').trim(),
-        serviceRequired: ((fd.get('service_required') as string) ?? '').trim(),
-        description:     ((fd.get('description')     as string) ?? '').trim(),
-        source:          'Simply Bespoke Website',
-      };
+      const text = (key: string) => ((fd.get(key) as string) ?? '').trim();
+      // Domestic or Commercial goes at the top of the message in the CRM.
+      const details = text('message');
+      fd.set('message', `Enquiry type: ${text('enquiry_type')}` + (details ? `\n\n${details}` : ''));
+      fd.delete('enquiry_type');
+      fd.delete('consent');
+      // One ID per enquiry: a retry of the same details reuses it, so the CRM never gets it twice.
+      const content = JSON.stringify(['name', 'phone', 'email', 'postcode', 'service', 'message'].map(k => ((fd.get(k) as string) ?? '').trim()));
+      let pending: { id: string; content: string } | null = null;
+      try { pending = JSON.parse(sessionStorage.getItem(PENDING_KEY) ?? 'null'); } catch { pending = null; }
+      if (!pending || pending.content !== content) pending = { id: crypto.randomUUID(), content };
+      try { sessionStorage.setItem(PENDING_KEY, JSON.stringify(pending)); } catch { /* private browsing */ }
+      fd.set('submission_id', pending.id);
+      fd.set('page_source', window.location.origin + window.location.pathname);
+      const body = new URLSearchParams();
+      fd.forEach((value, key) => { if (typeof value === 'string') body.append(key, value.trim()); });
 
-      const res = await fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetch(ENDPOINT, { method: 'POST', headers: { Accept: 'application/json' }, body });
+      const result = await res.json().catch(() => null) as { status?: string; code?: string; fields?: Record<string, string> } | null;
 
-      if (res.ok) {
+      if (res.ok && result?.status === 'accepted') {
+        try { sessionStorage.removeItem(PENDING_KEY); } catch { /* ignore */ }
         showSuccess();
+      } else if (res.status === 400 && result?.fields && Object.keys(result.fields).length) {
+        const ids: Record<string, string> = { name: 'qf-name', phone: 'qf-phone', email: 'qf-email', postcode: 'qf-postcode', service: 'qf-service' };
+        Object.keys(result.fields).forEach(field => { if (ids[field]) fieldErr(ids[field], 'Please check this.'); });
+        showFormError('Please check the highlighted details.');
+      } else if (res.status === 429) {
+        showFormError('Too many enquiries from this connection. Please wait a few minutes, or call 07553 579237.');
       } else {
-        console.error('[QuoteForm] Webhook responded with status', res.status);
+        console.error('[QuoteForm] Enquiry route responded with status', res.status, result?.code);
         showFormError(
           `Submission failed (error ${res.status}). Please call 07553 579237 or ` +
           'email info@simplybespoke.co.uk.'
@@ -358,6 +357,7 @@
 <style>
   /* ── Wrapper ── */
   .qf-wrapper { width: 100%; }
+  .qf__trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
   /* ── Form ── */
   .qf { display: flex; flex-direction: column; gap: 1.5rem; }
