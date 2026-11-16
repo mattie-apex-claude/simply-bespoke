@@ -30,7 +30,7 @@
         <input
           type="tel" id="qf-phone" name="phone"
           class="qf__input" required
-          autocomplete="tel" placeholder="e.g. 07553 579237"
+          autocomplete="tel" placeholder="e.g. 01388 433057"
         />
         <span class="qf__error" id="qf-phone-err" role="alert" aria-live="polite"></span>
       </div>
@@ -155,8 +155,8 @@
     <p>Thank you — we'll be in touch shortly to discuss your quote.</p>
     <p>
       For urgent enquiries call us on
-      <a href="tel:07553579237">07553 579237</a>
-      or <a href="https://wa.me/447553579237" target="_blank" rel="noopener noreferrer">message us on WhatsApp</a>.
+      <a href="tel:01388433057">01388 433057</a>
+      or <a href="https://wa.me/441388433057" target="_blank" rel="noopener noreferrer">message us on WhatsApp</a>.
     </p>
   </div>
 
@@ -258,7 +258,7 @@
     let ok = true;
     fields.forEach(id => { if (!validateField(id)) ok = false; });
     if (!validateConsent()) ok = false;
-    if (!ok) {
+    if (!ok && form) {
       const first = form.querySelector<HTMLElement>('.has-error, [aria-invalid]');
       first?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
@@ -277,6 +277,7 @@
 
   // ── Submit state helpers ───────────────────────────────────────────────────
   function setBusy(busy: boolean) {
+    if (!submitBtn) return;
     const label   = submitBtn.querySelector<HTMLElement>('.qf__label-text');
     const loading = submitBtn.querySelector<HTMLElement>('.qf__loading');
     submitBtn.disabled = busy;
@@ -286,7 +287,7 @@
   }
 
   function showSuccess() {
-    form.hidden = true;
+    if (form) form.hidden = true;
     if (successEl) { successEl.hidden = false; successEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
   }
 
@@ -334,18 +335,18 @@
         Object.keys(result.fields).forEach(field => { if (ids[field]) fieldErr(ids[field], 'Please check this.'); });
         showFormError('Please check the highlighted details.');
       } else if (res.status === 429) {
-        showFormError('Too many enquiries from this connection. Please wait a few minutes, or call 07553 579237.');
+        showFormError('Too many enquiries from this connection. Please wait a few minutes, or call 01388 433057.');
       } else {
         console.error('[QuoteForm] Enquiry route responded with status', res.status, result?.code);
         showFormError(
-          `Submission failed (error ${res.status}). Please call 07553 579237 or ` +
-          'email info@simplybespoke.co.uk.'
+          `Submission failed (error ${res.status}). Please call 01388 433057 or ` +
+          'email info@simplybespokeltd.co.uk.'
         );
       }
     } catch {
       showFormError(
-        'Unable to send your enquiry. Please call us on 07553 579237 or ' +
-        'email info@simplybespoke.co.uk.'
+        'Unable to send your enquiry. Please call us on 01388 433057 or ' +
+        'email info@simplybespokeltd.co.uk.'
       );
     } finally {
       setBusy(false);
