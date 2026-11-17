@@ -78,7 +78,10 @@ function configuration(env: WebsiteEnquiryEnv, requestUrl: URL): { endpoint: URL
     const endpoint = absoluteUrl(env.APEX_WEBSITE_ENDPOINT ?? defaultEndpoint)
     if (endpoint.protocol !== 'https:' && !(endpoint.protocol === 'http:' && localHost(endpoint) && localHost(requestUrl))) throw new Error('insecure endpoint')
     if (endpoint.pathname !== '/functions/v1/website-enquiry' || endpoint.search || endpoint.hash) throw new Error('invalid endpoint')
-    if (!uuidPattern.test(env.APEX_WEBSITE_ID) || !/^[0-9a-f]{64}$/i.test(env.APEX_WEBSITE_SECRET)) throw new Error('invalid credentials')
+    if (!env.APEX_WEBSITE_ID) throw new AdapterError(503, 'configuration_error_missing_id')
+    if (!uuidPattern.test(env.APEX_WEBSITE_ID)) throw new AdapterError(503, 'configuration_error_bad_id')
+    if (!env.APEX_WEBSITE_SECRET) throw new AdapterError(503, 'configuration_error_missing_secret')
+    if (!/^[0-9a-f]{64}$/i.test(env.APEX_WEBSITE_SECRET)) throw new AdapterError(503, 'configuration_error_bad_secret')
     const fields: FieldMap = { name: 'name', address: 'address', postcode: 'postcode', phone: 'phone', service: 'service', message: 'message', email: 'email' }
     if (env.WEBSITE_FORM_FIELDS !== undefined) {
       const mapping: unknown = JSON.parse(env.WEBSITE_FORM_FIELDS)
@@ -93,7 +96,8 @@ function configuration(env: WebsiteEnquiryEnv, requestUrl: URL): { endpoint: URL
     const successPath = env.WEBSITE_SUCCESS_PATH ?? '/thank-you/'
     if (!/^\/(?!\/)[a-zA-Z0-9/_-]*$/.test(successPath)) throw new Error('invalid success path')
     return { endpoint, fields, successPath }
-  } catch {
+  } catch (error) {
+    if (error instanceof AdapterError) throw error
     throw new AdapterError(503, 'configuration_error')
   }
 }
