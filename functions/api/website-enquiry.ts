@@ -14,7 +14,7 @@ type FieldMap = Record<CanonicalField, string> & { honeypot?: string }
 // ApexFlow CRM's website endpoint, so a client site only needs its connection ID and secret.
 const defaultEndpoint = 'https://oghgjtlhwevgspofazpx.supabase.co/functions/v1/website-enquiry'
 // A hidden trap field with this name is used automatically when no honeypot is mapped.
-const defaultHoneypot = 'company_website'
+const defaultHoneypot = 'sb_check_7f3'
 const canonicalFields: CanonicalField[] = ['name', 'address', 'postcode', 'phone', 'service', 'message', 'email']
 const maxBytes = 32 * 1024
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
